@@ -1,0 +1,8 @@
+SPEAKERS
+The Speakers section on the homepage stays hidden until you add a photo here.
+
+Name each photo like this:
+    01 - Full Name - Designation, Company.jpg
+
+BEST SIZE: portrait 4:5, at least 800 x 1000 px, head and shoulders.
+Cropped to 4:5 from the top, like team photos.

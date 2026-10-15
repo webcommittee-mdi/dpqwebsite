@@ -1,0 +1,10 @@
+JOINT EVENT POSTERS (optional)
+Name each poster exactly like the event in joint-events.txt:
+    event = Alumni Talk | Alumni Committee | 14 November 2026 |
+    ->  Alumni Talk.jpg
+
+The Instagram poster works as it is (4:5 or square). Posters are never cropped.
+Events without a poster show a simple tile with the club's name instead.
+
+Old posters can stay: once an event's date has passed it disappears from the
+website by itself. Delete them now and then to keep this folder tidy.

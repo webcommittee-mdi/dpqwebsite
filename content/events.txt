@@ -1,0 +1,62 @@
+# ──────────────────────────────────────────────────────────────────────
+#  DELPHIQUE WEBSITE · FLAGSHIP EVENTS
+#
+#  One block per event, shown in this order on the homepage.
+#  The word in [square brackets] is the event's short ID. It connects:
+#     • its photo        content/photos/events/<code>.jpg
+#     • its logo         content/logos/events/<code>.png  (optional)
+#     • its sign-up link register_<code>  in links.txt
+#
+#  stat  = number | label        (shows as a highlighted figure)
+#  point = one bullet point      (add as many as you like)
+#
+#  To remove an event, delete its whole block.
+#  To add an event, copy a block to the end and give it a new short ID in [brackets]
+#  (lowercase, dashes instead of spaces, e.g. [corporate-ramp-walk]). Then:
+#     • add its photo as content/photos/events/corporate-ramp-walk.jpg
+#     • add  register_corporate-ramp-walk = <form link>  to links.txt
+#  Any number of events works. With an odd number, the last card spans the full width.
+# ──────────────────────────────────────────────────────────────────────
+
+
+[cerebro]
+title = Cerebro
+category = The case challenge
+tagline = Where ideas ignite impact: powering analysis, driving solutions.
+stat = 835+ | Registrations
+stat = ₹75,000 | In prizes
+point = One of India's longest-running case study competitions
+point = Real industry problems that test business acumen and problem-solving
+point = Winners take home live projects and pre-placement interviews, not just cash
+
+
+[vincenza]
+title = Vincenza
+category = International business plan competition
+tagline = Show your entrepreneurial spirit and turn ideas into ventures.
+stat = 600+ | Registrations
+stat = ₹1 lakh | In prizes
+point = Pitch your business plan to angel investors and venture capitalists
+point = The top 10 teams get about six weeks of mentoring from partner VCs
+point = Finalists are groomed by investors, with a real chance to raise funding
+
+
+[panel-discussion]
+title = Panel Discussion
+category = Industry dialogue
+tagline = Unlock perspectives, one panel at a time.
+stat = 6+ | Industry leaders per panel
+point = Expert-led conversations across every domain of management
+point = Debates, panel discussions and live projects with sponsor partners
+point = Students, faculty and industry leaders in the same room, solving real problems
+
+
+[mun]
+title = MUN
+category = Model United Nations
+tagline = Experience diplomacy. Master negotiation. Shape global affairs.
+stat = 150+ | Registrations
+stat = ₹35,000 | In prizes
+point = Two days of debate on social, political and economic questions
+point = Builds diplomacy, conflict resolution and strategic thinking
+point = Committees that demand an international view of every problem

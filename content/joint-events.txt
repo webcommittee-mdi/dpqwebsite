@@ -1,0 +1,33 @@
+# ──────────────────────────────────────────────────────────────────────
+#  DELPHIQUE WEBSITE · JOINT EVENTS
+#
+#  Events Delphique runs with other clubs, committees and student interest groups.
+#  They show in a moving strip under Flagship Events, soonest first, with a search box.
+#
+#  One line per event:
+#
+#     event = Event name | With | Date | Link
+#
+#  • Only the name is needed. Name first, then the club. The date and link are
+#    recognised wherever they are, so a missing | is not a problem.
+#  • Date: like  14 November 2026,  15/11/2026,  or  20–22 November 2026  for more than one day.
+#    The event disappears from the website by itself the day after its date,
+#    so you never have to remove old ones (you can, if you like).
+#  • Link: the registration form or the Instagram post. Optional.
+#  • Poster (optional): upload it to  content/photos/joint-events/
+#    named exactly like the event, e.g.  Alumni Talk.jpg
+#    An Instagram poster (4:5 or square) works as it is.
+#  • The | key is Shift + \ on the keyboard.
+#
+#  The events below are SAMPLES. Delete them and add real ones.
+# ──────────────────────────────────────────────────────────────────────
+
+event = Case Prep Bootcamp | Consulting Club | 17 October 2026 | 
+event = Startup Pitch Night | Entrepreneurship Cell | 24 October 2026 |
+event = Markets Masterclass | Finance Club | 31 October 2026 |
+event = Brand Teardown | Marketing Club | 7 November 2026 |
+event = People Analytics Workshop | HR Club | 14 November 2026 |
+event = Data Viz Sprint | Analytics SIG | 20–22 November 2026 |
+event = Delphique Run | Sports Committee | 28 November 2026 |
+event = Cultural Night | Cultural Committee | 5 December 2026 |
+event = Policy Debate | Public Policy SIG | 1 October 2026 |

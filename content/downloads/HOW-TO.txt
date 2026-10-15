@@ -1,0 +1,5 @@
+DOWNLOADS
+Upload PDFs here (for example the brochure), then write the file's name after
+brochure = in links.txt. If the name doesn't match, the newest-looking PDF here
+is used, so a new brochure still shows up.
+Keep PDFs under about 10 MB so they open quickly on phones.

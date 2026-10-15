@@ -1,0 +1,81 @@
+# ──────────────────────────────────────────────────────────────────────
+#  DELPHIQUE WEBSITE · SITE DETAILS
+#
+#  Everyday text that changes from year to year.
+#  Change the part after "=", then Commit. Blank = hidden.
+#  Lines starting with # are notes and are ignored.
+#  Wrap words in **double stars** to make them bold.
+#
+#  These words in curly brackets fill themselves in anywhere in this file:
+#     {year}             2026
+#     {edition}          30th
+#     {years}            30
+#     {years-in-words}   Thirty
+# ──────────────────────────────────────────────────────────────────────
+
+
+# ── This year's edition ───────────────────────────────────────────────
+
+# The year and edition move forward by themselves every 1 January,
+# counted from the first Delphique in 1997 (1997 = 1st, so 2026 = 30th).
+# Checked against past editions: 2016 = 20th, 2022 = 26th, 2025 = 29th.
+# Nothing needs to be changed each year.
+first_edition = 1997
+
+# "auto" follows the calendar. To hold the site on one year
+# (for example while the new team gets ready), write the year instead: year = 2026
+year = auto
+
+# The event's dates, with the year, e.g.  4–5 December 2026
+# Shown under the headline, and the homepage countdown runs to the first day.
+# After the last day, the dates and countdown hide themselves.
+dates =
+
+# Only if the countdown should run to a different day than the first day above.
+countdown_to =
+
+venue = MDI Gurgaon, Sector 17, Gurugram, Haryana
+
+# A thin strip at the very top of every page, for news.
+# e.g.  Cerebro registrations close on 20 November
+announcement =
+
+
+# ── Homepage hero ─────────────────────────────────────────────────────
+
+# One "headline =" line per line of the big title.
+# Every second line is shown in red.
+headline = {years-in-words} years of
+headline = vision.
+headline = impact.
+headline = legacy.
+
+intro = The National Management Convention of MDI Gurgaon. Two days where students from India's top B-schools compete, pitch and debate in front of the people who run the industry.
+
+
+# ── Numbers strip (number | label) ────────────────────────────────────
+
+stat = {edition} | Edition
+stat = 1500+ | Attendees every year
+stat = 45+ | B-schools and colleges
+stat = 8+ | Events over two days
+stat = ₹5L+ | In prizes and vouchers
+
+
+# ── About Delphique (About page + homepage) ───────────────────────────
+
+about_delphique = Delphique, the National Management Convention of MDI Gurgaon, carries a **legacy of {years} years**. It is the red carpet event of the institute: a platform that bridges academia and industry through keynote addresses, panel discussions and national-level competitions.
+about_delphique = Every edition brings corporate leaders, faculty and students from across the country onto one stage to exchange ideas, build networks and take on real business problems with fresh perspectives.
+
+mission = To give future business leaders a platform to show their thinking, foster industry–academia collaboration and hold meaningful discussions on management.
+vision = To be the go-to event where corporate leaders, students and academia connect, share insights and explore every area of management.
+values = Innovation, research excellence, collaboration, and a space for networking and knowledge exchange.
+
+
+# ── About MDI (About page) ────────────────────────────────────────────
+
+about_mdi = Established in **1973**, MDI Gurgaon is one of India's premier business schools, ranked **#9 by NIRF** in the management category. Over 50 years it has built a distinct position in management education for both executives and graduate students.
+about_mdi = MDI runs the **country's largest exchange programme**, was the first to launch an International Summer University, and was the **first B-school in India accredited by AMBA**, UK. More than 80 full-time and 105 visiting faculty teach across three residential programmes and four executive programmes.
+
+accreditations = AACSB, AMBA and NBA accredited
+mdi_rank = #9 | NIRF, management

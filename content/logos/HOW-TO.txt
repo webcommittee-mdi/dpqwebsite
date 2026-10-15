@@ -1,0 +1,9 @@
+LOGOS
+When a logo is added here, it replaces the plain text on the website.
+
+    A file with "delphique" in its name (e.g. delphique.png)  -> top bar and footer.
+        Use a version made for dark backgrounds (white or light text).
+    A file with "mdi" in its name (e.g. mdi.png)  -> footer and About page.
+
+SVG or a transparent PNG looks best.
+Subfolders: events/ for event logos, partners/ for sponsor logos.

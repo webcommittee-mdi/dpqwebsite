@@ -1,0 +1,213 @@
+@import "tailwindcss";
+
+/* Delphique palette: black stage, red carpet, award gold. */
+@theme {
+  --color-ink: #050505;
+  --color-stage: #0d0c0c;
+  --color-line: rgb(255 255 255 / 0.09);
+  --color-line-strong: rgb(255 255 255 / 0.2);
+  --color-paper: #f4f0ea;
+  --color-mute: #a39d96;
+  --color-carpet: #c1121f;
+  --color-carpet-dark: #9e0e19;
+  --color-oxblood: #5c0b12;
+  --color-gold: #c6a15b;
+
+  --font-display: "Playfair Display", "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    scroll-padding-top: 88px;
+  }
+  body {
+    min-height: 100vh;
+    background: var(--color-ink);
+  }
+  ::selection {
+    background: var(--color-carpet);
+    color: white;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+  img {
+    color: transparent; /* hide alt text flash while loading */
+  }
+  /* Playfair defaults to old-style figures; lining figures read better in stats and headings. */
+  .font-display,
+  .display,
+  .h-section {
+    font-variant-numeric: lining-nums;
+  }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .wrap {
+      padding-inline: 2.5rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .wrap {
+      padding-inline: 4rem;
+    }
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.04;
+  }
+  .h-section {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    font-size: clamp(2.1rem, 4.4vw, 3.6rem);
+  }
+  .lede {
+    color: var(--color-mute);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    max-width: 62ch;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0.8rem 1.6rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--color-carpet);
+    color: white;
+  }
+  .btn-primary:hover {
+    background: var(--color-carpet-dark);
+  }
+  .btn-ghost {
+    border: 1px solid var(--color-line-strong);
+    color: var(--color-paper);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-paper);
+  }
+  .btn-muted {
+    border: 1px dashed var(--color-line-strong);
+    color: var(--color-mute);
+    cursor: default;
+  }
+  .btn-sm {
+    min-height: 2.5rem;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.875rem;
+  }
+
+  .link {
+    color: var(--color-paper);
+    text-decoration: underline;
+    text-decoration-color: var(--color-carpet);
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 0.2s;
+  }
+  .link:hover {
+    text-decoration-color: var(--color-paper);
+  }
+}
+
+/* Hero: one orchestrated entrance, nothing else on the page animates in. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sweep {
+  from {
+    stroke-dashoffset: 700;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.rise {
+  animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.arc-sweep {
+  stroke-dasharray: 700;
+  animation: sweep 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.3s both;
+}
+/* Team slider: a thin rule with a red handle. */
+.team-slider {
+  appearance: none;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+}
+.team-slider::-webkit-slider-runnable-track {
+  height: 1px;
+  background: var(--color-line-strong);
+}
+.team-slider::-moz-range-track {
+  height: 1px;
+  background: var(--color-line-strong);
+}
+.team-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 44px;
+  height: 4px;
+  margin-top: -1.5px;
+  background: var(--color-carpet);
+  border: 0;
+}
+.team-slider::-moz-range-thumb {
+  width: 44px;
+  height: 4px;
+  background: var(--color-carpet);
+  border: 0;
+  border-radius: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .arc-sweep {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

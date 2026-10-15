@@ -1,0 +1,17 @@
+TEAM
+Every folder here is one group on the Team page, shown in number order:
+    1 - Core team
+    2 - Junior team
+    3 - Website team (Web Committee, MDI)
+The number only sets the order; it is not shown.
+
+The "Website team" folder belongs to the Web Committee, who build and look after
+this website. Delphique: please leave that folder as it is.
+
+Name each person's photo like this:
+    01 - Aarav Sharma - Secretary.jpg
+    (number for order) - (name) - (position)
+No position? Just  01 - Aarav Sharma.jpg
+
+Upright photos, head and shoulders, plain background. Straight from a phone is fine.
+The SAMPLE ("Member Name") photos hide themselves as soon as real team photos are added.

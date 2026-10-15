@@ -1,0 +1,8 @@
+FIXED SITE PHOTOS
+Each photo here fills one fixed spot on the website:
+
+    mdi-campus.jpg        About page, MDI section (very wide)
+    about-delphique.jpg   About page and homepage, Delphique section (upright)
+    join-us.jpg           Faint background of the final 'Register' section (wide)
+
+Upload a photo with that name. The SAMPLE one hides itself.

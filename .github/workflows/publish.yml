@@ -1,0 +1,85 @@
+# Runs after every change to the repository:
+#   1. tidies uploaded photos (iPhone photos -> JPG, huge photos shrunk) and saves them back
+#   2. builds the website
+#   3. publishes it on GitHub Pages (2–3 minutes in total)
+#
+# Hosting on Cloudflare Pages instead? Add a repository variable HOSTING = cloudflare
+# (Settings > Secrets and variables > Actions > Variables) and steps 2–3 are skipped.
+name: Publish website
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # to save tidied photos
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Tidy photos
+        run: |
+          pip install --quiet pillow pillow-heif
+          python scripts/tidy_photos.py content
+      - name: Save tidied photos
+        continue-on-error: true
+        run: |
+          if [ -n "$(git status --porcelain content)" ]; then
+            git config user.name "photo-tidy-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A content
+            git commit -m "Tidy photos (automatic: convert iPhone photos, shrink large ones)"
+            git pull --rebase && git push
+          fi
+
+      - if: vars.HOSTING != 'cloudflare'
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - if: vars.HOSTING != 'cloudflare'
+        run: npm ci
+      - name: Reuse resized photos from earlier builds
+        if: vars.HOSTING != 'cloudflare'
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.cache
+          key: photos-${{ hashFiles('content/**') }}
+          restore-keys: photos-
+      - id: pages
+        if: vars.HOSTING != 'cloudflare'
+        uses: actions/configure-pages@v5
+      - name: Build
+        if: vars.HOSTING != 'cloudflare'
+        run: npm run build
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+      - if: vars.HOSTING != 'cloudflare'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    if: vars.HOSTING != 'cloudflare'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

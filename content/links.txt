@@ -1,0 +1,63 @@
+# ──────────────────────────────────────────────────────────────────────
+#  DELPHIQUE WEBSITE · LINKS
+#
+#  How to edit:  change the part after the "=" sign, then Commit.
+#                The website updates by itself in 2–3 minutes.
+#  Blank value:  the button or icon for that link is hidden.
+#  Registration buttons:  a link -> "Register"   blank -> "Registrations open soon"
+#                         closed -> "Registrations closed"   none -> no button at all
+#  After the event's last day (see dates in site.txt) every Register button
+#  closes by itself, so last year's forms never stay up.
+#  Notes:        lines starting with # are notes for you and are ignored.
+# ──────────────────────────────────────────────────────────────────────
+
+
+# ── Registration ──────────────────────────────────────────────────────
+
+# The main "Register" button (top bar, homepage, final section)
+register =
+
+# One registration form per event, shown on that event's card.
+# The word after "register_" must match the event's short ID in [brackets] in events.txt.
+# When you add an event in events.txt, add a line for it here too.
+# An event with no sign-ups at all (like a show)? Write  none  and its card has no button.
+register_cerebro =
+register_vincenza =
+register_panel-discussion =
+register_mun =
+
+
+# ── Team and partners ─────────────────────────────────────────────────
+
+# Recruitment form for the "Join the team" button (Team page + homepage)
+join_team =
+
+# Where "Partner with us" goes. An email works:  mailto:someone@mdi.ac.in
+partner_with_us =
+
+
+# ── Files ─────────────────────────────────────────────────────────────
+
+# Brochure. A web link, or the name of a PDF you uploaded to content/downloads/
+# (if the name doesn't match, the newest-looking PDF there is used).
+brochure = Delphique-Brochure-2025-26.pdf
+
+
+# ── Contact ───────────────────────────────────────────────────────────
+
+# Shown in the footer. Several are fine:  phone = +91 98765 43210 / +91 91234 56789
+email =
+phone =
+
+# Google Maps link for the venue
+map = https://maps.google.com/?q=Management+Development+Institute+Gurgaon
+
+
+# ── Social media (blank = icon hidden). A full link or an @handle both work.
+
+instagram =
+linkedin =
+youtube =
+
+# Official MDI website, linked from the About page and footer
+mdi_website = https://www.mdi.ac.in

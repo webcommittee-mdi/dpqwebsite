@@ -1,0 +1,8 @@
+EVENT CARD PHOTOS
+One photo per event, named after the event's short ID in [brackets] in events.txt:
+    cerebro.jpg   vincenza.jpg   panel-discussion.jpg   mun.jpg
+
+Wide (landscape) photos work best; keep people and action near the centre.
+The SAMPLE photo for an event hides itself as soon as you upload a real one.
+
+To change a real photo later, delete the old one and upload the new one.

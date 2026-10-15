@@ -1,0 +1,16 @@
+GALLERY
+Every folder here is one album. Put the year in the folder name, first if you can:
+    2026 - Cerebro finals
+    2025 - Delphique 29th edition
+The year puts the album under that year on the Gallery page.
+
+Several albums in one year? Add the month to keep them in order (newest first):
+    2026-12 - Cerebro finals
+    2026-11 - Opening day
+
+Photo names inside an album don't matter (IMG_4521.jpg is fine), and iPhone photos work.
+Pick your best 30-50 photos per album.
+
+To add an album: make a folder with that name on your laptop, put the photos in,
+then Add file > Upload files and drag the whole folder in.
+To delete an album: open its folder > ... menu > Delete directory.

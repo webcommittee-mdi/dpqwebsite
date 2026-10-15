@@ -1,0 +1,6 @@
+EVENT LOGOS (optional)
+One logo per event, named after its short ID in events.txt:
+    cerebro.png   vincenza.png   panel-discussion.png   mun.png
+
+It appears on a small white tile in the corner of that event's photo,
+so any logo colour works. PNG or SVG looks sharpest.

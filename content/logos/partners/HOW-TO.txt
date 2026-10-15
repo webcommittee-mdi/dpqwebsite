@@ -1,0 +1,8 @@
+SPONSOR LOGOS
+The sponsors strip on the homepage appears as soon as one logo is added here.
+
+Name each file:  01 - Company name.png   (the number sets the order)
+
+Any logo works: each one sits on its own white tile, so dark, coloured, or
+logos with a white box behind them all show clearly. A logo file from the
+sponsor's own team (PNG or SVG) looks sharpest.
