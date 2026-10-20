@@ -64,8 +64,9 @@ stat = ₹7L+ | In prizes and vouchers
 
 # ── About Delphique (About page + homepage) ───────────────────────────
 
-about_delphique = Delphique, the National Management Convention of MDI Gurgaon, marks its 30th edition in 2026, carrying three decades of a legacy built around thought leadership, meaningful dialogue and real-world management learning. Popularly known as the *Red Carpet Event* of MDI Gurgaon, Delphique brings together students, academicians, industry leaders and thought leaders on a common platform to engage with contemporary business challenges and emerging ideas.
+about_delphique = Delphique, the National Management Convention of MDI Gurgaon, marks its {edition} edition in {year}, carrying three decades of a legacy built around thought leadership, meaningful dialogue and real-world management learning. Popularly known as the **Red Carpet Event** of MDI Gurgaon, Delphique brings together students, academicians, industry leaders and thought leaders on a common platform to engage with contemporary business challenges and emerging ideas.
 about_delphique = Over the years, Delphique has evolved into a national platform that goes beyond conventional management events, combining competitions, research-driven engagement, industry interactions and thought-provoking conversations. The convention has also earned national recognition, being ranked 7th among India’s Top 10 Popular B-School Festivals by Unstop.
+
 mission = To give future business leaders a platform to show their thinking, foster industry–academia collaboration and hold meaningful discussions on management.
 vision = To be the go-to event where corporate leaders, students and academia connect, share insights and explore every area of management.
 values = Innovation, research excellence, collaboration, and a space for networking and knowledge exchange.
