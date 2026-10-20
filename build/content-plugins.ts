@@ -7,6 +7,8 @@
  *                    unusual formats (JFIF, AVIF, TIFF, BMP, GIF) into JPGs before resizing.
  *  - forgiving():    wraps the image plugin so a broken or empty photo is skipped with a
  *                    warning instead of failing the whole build.
+ *  - favicons:       turns "Delphique icon.png" in content/logos into the browser-tab and
+ *                    home-screen icons (falls back to public/favicon.svg without one).
  */
 import { createHash } from "node:crypto";
 import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync, openSync, readSync, closeSync, statSync } from "node:fs";
@@ -176,6 +178,66 @@ export function pageCopies(pages: string[]): Plugin {
         copyFileSync(html, path.join(outDir, page, "index.html"));
       }
       copyFileSync(html, path.join(outDir, "404.html"));
+    },
+  };
+}
+
+/**
+ * Browser-tab and phone home-screen icons from content/logos/"... icon.png" (or favicon/mark/symbol).
+ * The icon is trimmed, centred on a tile and saved at the sizes browsers ask for. The tile is white,
+ * or near-black when the file name says white/light (a logo made for dark backgrounds).
+ */
+export function favicons(): Plugin {
+  let base = "/";
+  let files: { fileName: string; source: Buffer }[] = [];
+  const ICON = /(^|[^a-z])(icon|favicon|mark|symbol)([^a-z]|$)/i;
+  return {
+    name: "delphique-favicons",
+    apply: "build",
+    configResolved(cfg) {
+      base = cfg.base;
+    },
+    async buildStart() {
+      files = [];
+      const dir = path.join(ROOT, "content/logos");
+      if (!existsSync(dir)) return;
+      const icon = readdirSync(dir)
+        .filter((n) => /\.(png|webp|jpe?g|svg)$/i.test(n) && ICON.test(n.replace(/\.[^.]+$/, "")))
+        .sort((a, b) => Number(!/delphique/i.test(a)) - Number(!/delphique/i.test(b)) || a.length - b.length)[0];
+      if (!icon) return;
+      try {
+        const dark = /white|light|inverse|negative|reverse/i.test(icon);
+        const bg = dark ? "#050505" : "#ffffff";
+        const mark = await sharp(path.join(dir, icon), { density: 300 }).trim().png().toBuffer();
+        const tile = async (size: number, pad: number, round: boolean) => {
+          const inner = Math.round(size * (1 - 2 * pad));
+          const fitted = await sharp(mark).resize(inner, inner, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).toBuffer();
+          const r = round ? Math.round(size * 0.2) : 0;
+          const shape = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${r}" fill="${bg}"/></svg>`);
+          return sharp(shape).composite([{ input: fitted, gravity: "center" }]).png().toBuffer();
+        };
+        files = [
+          { fileName: "favicon-32.png", source: await tile(32, 0.06, true) },
+          { fileName: "favicon-192.png", source: await tile(192, 0.1, true) },
+          // iOS rounds the corners itself and turns transparent corners black.
+          { fileName: "apple-touch-icon.png", source: await tile(180, 0.12, false) },
+        ];
+      } catch (e) {
+        files = [];
+        this.warn(`content/logos/${icon} couldn't be made into the browser-tab icon (${(e as Error).message}); keeping the default one.`);
+      }
+    },
+    generateBundle() {
+      for (const f of files) this.emitFile({ type: "asset", fileName: f.fileName, source: f.source });
+    },
+    transformIndexHtml(html) {
+      if (!files.length) return html;
+      return html.replace(
+        /<link rel="icon"[^>]*>/,
+        `<link rel="icon" type="image/png" sizes="32x32" href="${base}favicon-32.png" />\n` +
+          `    <link rel="icon" type="image/png" sizes="192x192" href="${base}favicon-192.png" />\n` +
+          `    <link rel="apple-touch-icon" href="${base}apple-touch-icon.png" />`,
+      );
     },
   };
 }

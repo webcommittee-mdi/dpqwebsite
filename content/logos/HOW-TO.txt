@@ -1,9 +1,15 @@
 LOGOS
 When a logo is added here, it replaces the plain text on the website.
 
-    A file with "delphique" in its name (e.g. delphique.png)  -> top bar and footer.
-        Use a version made for dark backgrounds (white or light text).
+    A file with "delphique" in its name (e.g. Delphique logo white.png)  -> top bar and footer.
+        Use a version made for dark backgrounds (white or light text). If there are several,
+        one with "white" or "light" in its name is used.
+    A file with "icon" in its name (e.g. Delphique icon.png)  -> the small picture on the
+        browser tab and on phone home screens. Use the symbol only, without text.
     A file with "mdi" in its name (e.g. mdi.png)  -> footer and About page.
+
+Logo.png is the original full-colour logo, kept for reference. It isn't used, because it's
+made for white backgrounds and its dark red text can't be read on the dark website.
 
 SVG or a transparent PNG looks best.
 Subfolders: events/ for event logos, partners/ for sponsor logos.

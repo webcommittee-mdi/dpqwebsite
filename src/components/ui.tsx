@@ -64,7 +64,8 @@ export function BrochureButton({ className = "btn btn-ghost" }: { className?: st
 /** The Delphique logo from content/logos, or a typeset wordmark until one is added. */
 export function Wordmark({ large = false }: { large?: boolean }) {
   if (logo.delphique) {
-    return <img src={logo.delphique} alt="Delphique" className={large ? "h-14 w-auto" : "h-9 w-auto"} />;
+    // self-start + object-contain: never stretched by the flex column it sits in (the footer).
+    return <img src={logo.delphique} alt="Delphique" className={`${large ? "h-20" : "h-12 lg:h-14"} w-auto max-w-full self-start object-contain`} />;
   }
   return (
     <span className="flex flex-col leading-none select-none">

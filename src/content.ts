@@ -694,6 +694,9 @@ export const heroSlides = (() => {
 
 export const sitePhoto = (name: string) => findByName(photos.site, "/content/photos/site/", name);
 
+/** "Delphique icon.png", "favicon.png": the browser-tab icon (made at build time), never the logo itself. */
+const ICON = /(^|-)(icon|favicon|mark|symbol)(-|$)/;
+
 /** Logos: any file in content/logos whose name mentions Delphique / MDI ("Delphique Logo.png"). */
 export const logo = (() => {
   const files = inFolder(logos, "/content/logos/");
@@ -705,8 +708,8 @@ export const logo = (() => {
     return list[0] ? logos[list[0]] : undefined;
   };
   return {
-    delphique: find((n) => n.includes("delphique"), "Delphique"),
-    mdi: find((n) => /(^|-)mdi(-|$)/.test(n) && !n.includes("delphique"), "MDI"),
+    delphique: find((n) => n.includes("delphique") && !ICON.test(n), "Delphique"),
+    mdi: find((n) => /(^|-)mdi(-|$)/.test(n) && !n.includes("delphique") && !ICON.test(n), "MDI"),
   };
 })();
 
