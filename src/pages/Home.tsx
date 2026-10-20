@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { contact, events, heroSlides, link, partners, previewPhotos, site, sitePhoto, speakers, team, type Event } from "../content";
 import { Countdown } from "../components/Countdown";
@@ -123,6 +123,32 @@ function Stats() {
 
 /* ── Events ────────────────────────────────────────────────────────────── */
 
+/** A wide photo fills the card. A poster (portrait or square) is shown whole, over a blurred copy of itself. */
+function EventPhoto({ src }: { src: string }) {
+  const img = useRef<HTMLImageElement>(null);
+  const [poster, setPoster] = useState(false);
+  const check = () => {
+    const i = img.current;
+    if (i && i.naturalWidth && i.naturalWidth / i.naturalHeight < 1.2) setPoster(true);
+  };
+  useEffect(check, [src]);
+  return (
+    <>
+      {poster && <img src={src} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full scale-110 object-cover" style={{ filter: "blur(28px) brightness(0.45)" }} />}
+      <img
+        ref={img}
+        src={src}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        onLoad={check}
+        className={`absolute inset-0 h-full w-full ${poster ? "object-contain" : "object-cover"}`}
+        style={poster ? undefined : { filter: "brightness(0.7)" }}
+      />
+    </>
+  );
+}
+
 /** `wide` = the last card when there is an odd number of events: it spans the full row, photo beside text. */
 function EventCard({ ev, wide = false }: { ev: Event; wide?: boolean }) {
   const hasMedia = Boolean(ev.photo || ev.logo);
@@ -130,7 +156,7 @@ function EventCard({ ev, wide = false }: { ev: Event; wide?: boolean }) {
     <article className={`flex flex-col bg-ink ${wide ? "md:col-span-2 md:grid md:grid-cols-2" : ""}`}>
       {hasMedia && (
         <div className={`relative aspect-[16/9] overflow-hidden bg-stage ${wide ? "md:aspect-auto md:min-h-full" : ""}`}>
-          {ev.photo && <img src={ev.photo} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" style={{ filter: "brightness(0.7)" }} />}
+          {ev.photo && <EventPhoto src={ev.photo} />}
           {ev.logo && (
             <div className="absolute bottom-4 left-4 bg-white px-3 py-2">
               <img src={ev.logo} alt={`${ev.title} logo`} className="h-10 w-auto max-w-[180px] object-contain" />
@@ -202,7 +228,7 @@ function About() {
         )}
         <div>
           <h2 id="about-title" className="h-section mb-8 max-w-[14ch]">
-            The red carpet event of MDI Gurgaon
+            The Red Carpet Event of MDI Gurgaon
           </h2>
           {site.aboutDelphique.slice(0, 2).map((p) => (
             <p key={p} className="lede mb-5">

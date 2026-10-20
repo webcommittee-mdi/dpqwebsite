@@ -100,7 +100,7 @@ The website reads names, positions and order **from the file name**.
 
 1. **Straight from a phone or camera is perfect**, iPhone photos included. Don't crop, shrink or convert anything: the website does it.
 2. **People:** upright photo, head and shoulders, face in the top half, plain background.
-   **Events and slideshow:** wide photo, action in the middle.
+   **Events:** a wide photo, or the event's poster (it's shown whole). **Slideshow:** wide photo, action in the middle.
 3. **Don't send photos through WhatsApp.** It makes them blurry. Use Google Drive or a cable.
    Google Drive gives several photos as a `.zip`: unzip it on your laptop first, then upload the photos.
 
@@ -118,7 +118,7 @@ Delete them whenever you like, except in the Website team folder.
 - A one-line category ("Comedy show") and a one-line tagline
 - 1–3 numbers, e.g. prize money, registrations
 - 2–4 short bullet points
-- A wide photo, renamed `comedy-night.jpg`
+- A wide photo or its poster, renamed `comedy-night.jpg`
 - The registration form link (or `none` if it has no sign-ups)
 
 Then:
