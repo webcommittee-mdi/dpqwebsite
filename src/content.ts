@@ -266,7 +266,7 @@ const speakerPhotos = import.meta.glob<Maybe<string>>("/content/photos/speakers/
   eager: true, import: "default", query: { w: "480", h: "600", fit: "cover", position: "top", format: "webp", quality: "72" },
 });
 const logoRaster = import.meta.glob<Maybe<string>>("/content/logos/**/*.{png,webp,jpg,jpeg,jfif,heic,avif,tif,tiff,PNG,WEBP,JPG,JPEG,JFIF,HEIC,AVIF,TIF,TIFF}", {
-  eager: true, import: "default", query: { w: "800", format: "webp", quality: "90", withoutEnlargement: "" },
+  eager: true, import: "default", query: { w: "800", format: "webp", lossless: "", withoutEnlargement: "" },
 });
 const logoVector = import.meta.glob<string>("/content/logos/**/*.{svg,SVG}", {
   eager: true, import: "default", query: "?url",
