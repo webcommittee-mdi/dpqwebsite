@@ -202,7 +202,7 @@ function About() {
         )}
         <div>
           <h2 id="about-title" className="h-section mb-8 max-w-[14ch]">
-            The red carpet event of MDI Gurgaon
+            The Red carpet event of MDI Gurgaon
           </h2>
           {site.aboutDelphique.slice(0, 2).map((p) => (
             <p key={p} className="lede mb-5">

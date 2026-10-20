@@ -50,23 +50,22 @@ headline = vision.
 headline = impact.
 headline = legacy.
 
-intro = The National Management Convention of MDI Gurgaon. Two days where students from India's top B-schools compete, pitch and debate in front of the people who run the industry.
+intro = The National Management Convention of MDI Gurgaon. A platform where India's top B-schools compete, pitch and debate in front of the people who run the industry.
 
 
 # ── Numbers strip (number | label) ────────────────────────────────────
 
 stat = {edition} | Edition
-stat = 1500+ | Attendees every year
-stat = 45+ | B-schools and colleges
-stat = 8+ | Events over two days
-stat = ₹5L+ | In prizes and vouchers
+stat = 10000+ | Attendees every year
+stat = 60+ | B-schools and colleges
+stat = 10+ | Events over two days
+stat = ₹7L+ | In prizes and vouchers
 
 
 # ── About Delphique (About page + homepage) ───────────────────────────
 
-about_delphique = Delphique, the National Management Convention of MDI Gurgaon, carries a **legacy of {years} years**. It is the red carpet event of the institute: a platform that bridges academia and industry through keynote addresses, panel discussions and national-level competitions.
-about_delphique = Every edition brings corporate leaders, faculty and students from across the country onto one stage to exchange ideas, build networks and take on real business problems with fresh perspectives.
-
+about_delphique = Delphique, the National Management Convention of MDI Gurgaon, marks its 30th edition in 2026, carrying three decades of a legacy built around thought leadership, meaningful dialogue and real-world management learning. Popularly known as the *Red Carpet Event* of MDI Gurgaon, Delphique brings together students, academicians, industry leaders and thought leaders on a common platform to engage with contemporary business challenges and emerging ideas.
+about_delphique = Over the years, Delphique has evolved into a national platform that goes beyond conventional management events, combining competitions, research-driven engagement, industry interactions and thought-provoking conversations. The convention has also earned national recognition, being ranked 7th among India’s Top 10 Popular B-School Festivals by Unstop.
 mission = To give future business leaders a platform to show their thinking, foster industry–academia collaboration and hold meaningful discussions on management.
 vision = To be the go-to event where corporate leaders, students and academia connect, share insights and explore every area of management.
 values = Innovation, research excellence, collaboration, and a space for networking and knowledge exchange.

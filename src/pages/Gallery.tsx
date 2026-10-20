@@ -53,7 +53,7 @@ export default function Gallery() {
     <>
       <section className="pb-10 pt-16 lg:pt-24">
         <div className="wrap">
-          <h1 className="display text-[clamp(2.8rem,6.4vw,5.4rem)]">Gallery</h1>
+          <h1 className="display text-[clamp(2.8rem,6.4vw,5.4rem)]">Delphique Gallery</h1>
         </div>
       </section>
 

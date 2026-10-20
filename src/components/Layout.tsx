@@ -46,9 +46,11 @@ function Header() {
   return (
     <header className={`sticky top-0 z-50 border-b transition-colors duration-300 ${scrolled || open ? "border-line bg-ink/90 backdrop-blur-md" : "border-transparent bg-ink"}`}>
       <nav className="wrap flex h-[72px] items-center justify-between gap-6" aria-label="Main">
-        <Link to="/" aria-label="Delphique home" className="shrink-0">
+        {/* <Link to="/" aria-label="Delphique home" className="shrink-0"> 
           <Wordmark />
-        </Link>
+        </Link> */}
+       <img src="/content/Logos/logo.png" alt="Delphique" width={120} height={40} className="shrink-0" />
+        
         <ul className="hidden items-center gap-9 lg:flex">
           {NAV.map((n) => (
             <li key={n.label}>
