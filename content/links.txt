@@ -48,10 +48,10 @@ brochure = Delphique-Brochure-2025-26.pdf
 # People to contact from Delphique. One line per person, as many lines as you like:
 #     contact = Name | Position | Phone | Email
 # Leave out what you don't want to show, e.g.  contact = Aarav Sharma | Secretary, Delphique | +91 98765 43210
-contact =
+contact = Devansh Goenka | Secretary, Delphique | +91 99535 68303 | pgdm25devansh_d@mdi.ac.in
 
 # A general Delphique email and phone (optional). Several are fine:  phone = +91 98765 43210 / +91 91234 56789
-email =
+email = delphique@mdi.ac.in
 phone =
 
 # The address, and the Google Maps link it opens (blank address: the venue from site.txt)
@@ -61,8 +61,8 @@ map = https://maps.google.com/?q=Management+Development+Institute+Gurgaon
 
 # ── Social media (blank = icon hidden). A full link or an @handle both work.
 
-instagram =
-linkedin =
+instagram = https://www.instagram.com/delphiquemdi/
+linkedin = https://in.linkedin.com/company/mdi-delphique
 youtube =
 
 # Official MDI website, linked from the About page and footer
