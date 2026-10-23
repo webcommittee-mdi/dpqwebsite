@@ -1,16 +1,15 @@
 GALLERY
-Every folder here is one album. Put the year in the folder name, first if you can:
-    2026 - Cerebro finals
+The Gallery page shows every photo in this folder in one grid. Nothing else is shown:
+no folder names, no years, no filters. Tap a photo to see it full size.
+
+Folders are optional and only keep things tidy. With the year first in a folder's name,
+newer photos come first on the page:
+    2026 - Delphique
     2025 - Delphique 29th edition
-The year puts the album under that year on the Gallery page.
 
-Several albums in one year? Add the month to keep them in order (newest first):
-    2026-12 - Cerebro finals
-    2026-11 - Opening day
+Photo names don't matter (IMG_4521.jpg is fine), and iPhone photos work.
+Pick your best photos: the gallery is for highlights.
 
-Photo names inside an album don't matter (IMG_4521.jpg is fine), and iPhone photos work.
-Pick your best 30-50 photos per album.
-
-To add an album: make a folder with that name on your laptop, put the photos in,
-then Add file > Upload files and drag the whole folder in.
-To delete an album: open its folder > ... menu > Delete directory.
+To add photos: open a folder > Add file > Upload files, and drag them in.
+To add a folder: make it on your laptop with its name, put the photos in, then drag the whole folder in.
+To delete photos: open the photo or folder > ... menu > Delete file / Delete directory.

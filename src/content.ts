@@ -59,6 +59,8 @@ const ALIASES: Record<string, string> = {
   insta: "instagram", ig: "instagram", instagram_link: "instagram", linked_in: "linkedin", linkedin_link: "linkedin", yt: "youtube",
   mail: "email", e_mail: "email", email_id: "email", mail_id: "email",
   mobile: "phone", phone_number: "phone", contact_number: "phone", whatsapp: "phone",
+  contacts: "contact", contact_person: "contact", contact_people: "contact", poc: "contact", point_of_contact: "contact",
+  venue_address: "address", footer_address: "address",
   join: "join_team", recruitment: "join_team", join_the_team: "join_team", recruitment_form: "join_team",
   partner: "partner_with_us", sponsor: "partner_with_us", sponsorship: "partner_with_us", partner_link: "partner_with_us",
   brochure_link: "brochure", brochure_pdf: "brochure",
@@ -342,7 +344,7 @@ function findByName<T>(map: Record<string, T>, folder: string, name: string, loo
 /* ── Links ─────────────────────────────────────────────────────────────── */
 
 const LINK_KEYS = new Set([
-  "register", "join_team", "partner_with_us", "brochure", "email", "phone", "map",
+  "register", "join_team", "partner_with_us", "brochure", "email", "phone", "map", "contact", "address",
   "instagram", "linkedin", "youtube", "mdi_website",
 ]);
 const linksFile = textFile("links");
@@ -413,6 +415,34 @@ export const contact = {
     .filter((p) => (p.match(/\d/g) ?? []).length >= 8)
     .map((p) => ({ href: `tel:${p.replace(/[^\d+]/g, "")}`, text: p.replace(/^(tel|phone|mobile|ph)[:.\s-]*/i, "") })),
 };
+
+export type ContactPerson = { name: string; role: string; phones: { href: string; text: string }[]; emails: { href: string; text: string }[] };
+
+/**
+ * People to contact, from  contact = Name | Position | Phone | Email  lines in links.txt.
+ * Parts can come in any order and any can be left out; commas work instead of | too.
+ */
+export const contactPeople: ContactPerson[] = all(links, "contact").flatMap((line) => {
+  const parts = (line.includes("|") ? line.split("|") : line.split(",")).map((x) => x.trim()).filter(Boolean);
+  const person: ContactPerson = { name: "", role: "", phones: [], emails: [] };
+  const words: string[] = [];
+  for (const part of parts) {
+    const email = part.match(/[\w.+-]+@[\w-]+(\.[\w-]+)+/)?.[0];
+    if (email) person.emails.push({ href: `mailto:${email}`, text: email });
+    else if ((part.match(/\d/g) ?? []).length >= 8)
+      person.phones.push({ href: `tel:${part.replace(/[^\d+]/g, "")}`, text: part.replace(/^(tel|phone|mobile|ph)[:.\s-]*/i, "") });
+    else words.push(part);
+  }
+  person.name = words[0] ?? "";
+  person.role = words.slice(1).join(", ");
+  if (!person.name && !person.phones.length && !person.emails.length) return [];
+  if (!person.name) note(`links.txt: the contact "${line.slice(0, 50)}" has no name, so only the number or email is shown.`, "Write it as  contact = Name | Position | Phone | Email");
+  return [person];
+});
+
+/** The address in the footer: address = in links.txt, or else the venue in site.txt (see site below). */
+export const contactAddress = one(links, "address");
+
 export const isExternal = (href: string) => /^https?:/i.test(href);
 /** Worked out once, so a brochure problem is listed on /check whichever page is opened first. */
 export const brochure = link("brochure");
@@ -729,7 +759,6 @@ export const albums: Album[] = (() => {
     // A photo's album is its folder path inside gallery/ ("Delphique 2025 Photos/Day 1").
     const rel = p.slice("/content/photos/gallery/".length).split("/").slice(0, -1);
     const folder = rel.length ? rel.join(" – ") : "Photos";
-    if (!rel.length) note(`content/photos/gallery/${fileName(p)} isn't inside an album folder.`, "Put gallery photos in a folder named like  2026 - Cerebro finals");
     if (!grouped.has(folder)) grouped.set(folder, []);
     grouped.get(folder)!.push(p);
   }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { contact, events, heroSlides, link, partners, previewPhotos, site, sitePhoto, speakers, team, type Event } from "../content";
 import { Countdown } from "../components/Countdown";
@@ -51,10 +51,6 @@ function Hero() {
 
       <div className="wrap relative flex min-h-[calc(100svh-72px)] flex-col justify-end pb-14 pt-24 lg:justify-center lg:pb-20 lg:pt-16">
         <div className="max-w-[640px]">
-          <p className="rise mb-6 flex items-center gap-3 text-[0.9375rem] text-paper" style={{ animationDelay: "0.1s" }}>
-            <span className="h-px w-8 bg-carpet" />
-            MDI Gurgaon presents the {site.edition} edition
-          </p>
           <h1 className="display rise mb-8 text-[clamp(2.4rem,1.6rem+3.6vw,4.6rem)] uppercase" style={{ animationDelay: "0.25s" }}>
             {site.headline.map((line, i) => (
               <span key={i} className={`block text-balance ${i % 2 ? "text-carpet" : "text-paper"}`}>
@@ -123,32 +119,6 @@ function Stats() {
 
 /* ── Events ────────────────────────────────────────────────────────────── */
 
-/** A wide photo fills the card. A poster (portrait or square) is shown whole, over a blurred copy of itself. */
-function EventPhoto({ src }: { src: string }) {
-  const img = useRef<HTMLImageElement>(null);
-  const [poster, setPoster] = useState(false);
-  const check = () => {
-    const i = img.current;
-    if (i && i.naturalWidth && i.naturalWidth / i.naturalHeight < 1.2) setPoster(true);
-  };
-  useEffect(check, [src]);
-  return (
-    <>
-      {poster && <img src={src} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full scale-110 object-cover" style={{ filter: "blur(28px) brightness(0.45)" }} />}
-      <img
-        ref={img}
-        src={src}
-        alt=""
-        loading="lazy"
-        decoding="async"
-        onLoad={check}
-        className={`absolute inset-0 h-full w-full ${poster ? "object-contain" : "object-cover"}`}
-        style={poster ? undefined : { filter: "brightness(0.7)" }}
-      />
-    </>
-  );
-}
-
 /** `wide` = the last card when there is an odd number of events: it spans the full row, photo beside text. */
 function EventCard({ ev, wide = false }: { ev: Event; wide?: boolean }) {
   const hasMedia = Boolean(ev.photo || ev.logo);
@@ -156,7 +126,7 @@ function EventCard({ ev, wide = false }: { ev: Event; wide?: boolean }) {
     <article className={`flex flex-col bg-ink ${wide ? "md:col-span-2 md:grid md:grid-cols-2" : ""}`}>
       {hasMedia && (
         <div className={`relative aspect-[16/9] overflow-hidden bg-stage ${wide ? "md:aspect-auto md:min-h-full" : ""}`}>
-          {ev.photo && <EventPhoto src={ev.photo} />}
+          {ev.photo && <img src={ev.photo} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" style={{ filter: "brightness(0.7)" }} />}
           {ev.logo && (
             <div className="absolute bottom-4 left-4 bg-white px-3 py-2">
               <img src={ev.logo} alt={`${ev.title} logo`} className="h-10 w-auto max-w-[180px] object-contain" />
@@ -292,7 +262,7 @@ function GalleryPreview() {
               key={p.thumb}
               onClick={() => setOpen(i)}
               className={`group relative overflow-hidden bg-stage ${i === 0 ? "col-span-2 aspect-[4/3] md:row-span-2 md:aspect-auto" : "aspect-[4/3]"}`}
-              aria-label={`Open photo ${i + 1} from ${p.album}`}
+              aria-label={`Open photo ${i + 1}`}
             >
               <img src={p.thumb} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
             </button>

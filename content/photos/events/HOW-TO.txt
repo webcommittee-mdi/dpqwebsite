@@ -2,8 +2,8 @@ EVENT CARD PHOTOS
 One photo per event, named after the event's short ID in [brackets] in events.txt:
     cerebro.jpg   vincenza.jpg   panel-discussion.jpg   mun.jpg
 
-Wide (landscape) photos fill the card; keep people and action near the centre.
-A poster (upright or square) works too: it's shown whole, never cut off.
+Wide (landscape) photos work best: the card is wide and shows the middle of the photo.
+Keep people and action near the centre (an upright poster is cut off at the top and bottom).
 The SAMPLE photo for an event hides itself as soon as you upload a real one.
 
 To change a real photo later, delete the old one and upload the new one.

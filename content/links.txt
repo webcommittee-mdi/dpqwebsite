@@ -43,13 +43,19 @@ partner_with_us =
 brochure = Delphique-Brochure-2025-26.pdf
 
 
-# ── Contact ───────────────────────────────────────────────────────────
+# ── Contact (the Contact part of the footer) ──────────────────────────
 
-# Shown in the footer. Several are fine:  phone = +91 98765 43210 / +91 91234 56789
+# People to contact from Delphique. One line per person, as many lines as you like:
+#     contact = Name | Position | Phone | Email
+# Leave out what you don't want to show, e.g.  contact = Aarav Sharma | Secretary, Delphique | +91 98765 43210
+contact =
+
+# A general Delphique email and phone (optional). Several are fine:  phone = +91 98765 43210 / +91 91234 56789
 email =
 phone =
 
-# Google Maps link for the venue
+# The address, and the Google Maps link it opens (blank address: the venue from site.txt)
+address = MDI Gurgaon, Sector 17, Gurugram, Haryana
 map = https://maps.google.com/?q=Management+Development+Institute+Gurgaon
 
 

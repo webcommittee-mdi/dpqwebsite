@@ -64,8 +64,6 @@ export function Lightbox({ photos, index, onClose, onChange }: { photos: Photo[]
       <div className="flex items-center justify-between gap-4 px-4 py-3 text-sm md:px-6">
         <p className="truncate text-mute">
           <span className="text-paper">{index + 1}</span> of {n}
-          <span className="mx-2 text-line-strong">/</span>
-          {photo.album}
         </p>
         <button ref={closeRef} onClick={onClose} className="grid h-11 w-11 place-items-center text-paper hover:text-gold" aria-label="Close photo viewer">
           <X size={24} />
@@ -84,7 +82,7 @@ export function Lightbox({ photos, index, onClose, onChange }: { photos: Photo[]
         <img
           key={photo.full}
           src={photo.full}
-          alt={`${photo.album}, photo ${index + 1}`}
+          alt={`Photo ${index + 1}`}
           onLoad={() => setLoaded(true)}
           className="relative max-h-full max-w-full object-contain transition-opacity duration-300"
           style={{ opacity: loaded ? 1 : 0 }}

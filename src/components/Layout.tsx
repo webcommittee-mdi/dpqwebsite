@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, NavLink, useLocation } from "react-router";
 import { Instagram, Linkedin, Menu, X, Youtube } from "lucide-react";
-import { contact, link, logo, site } from "../content";
+import { contact, contactAddress, contactPeople, link, logo, site } from "../content";
 import { A, RegisterButton, Wordmark } from "./ui";
 
 const NAV = [
@@ -98,6 +98,7 @@ function Social() {
 function Footer() {
   const map = link("map");
   const mdi = link("mdi_website");
+  const address = contactAddress || site.venue;
   return (
     <footer id="contact" className="border-t border-line bg-stage">
       <div className="wrap grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr] lg:py-20">
@@ -111,7 +112,21 @@ function Footer() {
 
         <div>
           <h2 className="mb-5 font-display text-xl">Contact</h2>
+          {/* Everything here comes from the Contact part of links.txt. */}
           <ul className="flex flex-col gap-3 text-[0.9375rem] text-mute">
+            {contactPeople.map((p, i) => (
+              <li key={i} className="mb-2">
+                {p.name && <p className="text-paper">{p.name}</p>}
+                {p.role && <p className="text-sm">{p.role}</p>}
+                {[...p.phones, ...p.emails].map((c) => (
+                  <p key={c.href} className="mt-1">
+                    <a className="link" href={c.href}>
+                      {c.text}
+                    </a>
+                  </p>
+                ))}
+              </li>
+            ))}
             {[...contact.emails, ...contact.phones].map((c) => (
               <li key={c.href}>
                 <a className="link" href={c.href}>
@@ -119,7 +134,7 @@ function Footer() {
                 </a>
               </li>
             ))}
-            {site.venue && <li>{map ? <A href={map} className="link">{site.venue}</A> : site.venue}</li>}
+            {address && <li>{map ? <A href={map} className="link">{address}</A> : address}</li>}
           </ul>
         </div>
 
@@ -147,7 +162,7 @@ function Footer() {
             <p>© {site.year} Delphique, Management Development Institute Gurgaon</p>
             {/* Website credit. Kept in the code (not in /content) on purpose. */}
             <p>
-              Made in association with the <span className="text-paper">Web Committee, MDI Gurgaon</span>
+              Designed, built and hosted by the <span className="text-paper">Web Committee, MDI Gurgaon</span>, in association with Delphique
             </p>
           </div>
           {logo.mdi && <img src={logo.mdi} alt="MDI Gurgaon" className="h-8 w-auto opacity-80" />}

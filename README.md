@@ -56,6 +56,7 @@ The Web Committee looks after everything else: the code, the hosting and the web
 | Show news at the top | site.txt | Write it after `announcement =`. Delete it to hide. |
 | Change the big numbers | site.txt | Edit the `stat =` lines: `1500+ \| Attendees every year` |
 | Add Instagram, LinkedIn, email, phone | links.txt | Fill in that line. Instagram/YouTube: link or `@handle`. LinkedIn: the full link. |
+| Add a contact person (footer) | links.txt | Add a line: `contact = Name \| Position \| Phone \| Email`. One line per person. |
 | Add gallery photos | photos → gallery | See "Name things like this" below |
 | Change the team | photos → team | Delete last year's Core and Junior folders, upload the new ones. Leave "Website team" as it is |
 | Add a speaker | photos → speakers | Upload their photo. The section appears by itself |
@@ -81,8 +82,8 @@ The website reads names, positions and order **from the file name**.
 | Team photo | `01 - Aarav Sharma - Secretary.jpg` | Aarav Sharma, Secretary, 1st |
 | Team photo, no position | `01 - Aarav Sharma.jpg` | Aarav Sharma |
 | Team folder | `1 - Core team` | "Core team", first group |
-| Gallery folder | `2026 - Cerebro finals` | "Cerebro finals" under 2026 |
-| Photos in a gallery folder | anything (`IMG_2201.jpg` is fine) | in name order |
+| Gallery folder (optional) | `2026 - Cerebro finals` | not shown; the newest year's photos come first |
+| Gallery photo | anything (`IMG_2201.jpg` is fine) | in name order |
 | Speaker photo | `01 - Priya Nair - CEO, Acme Ltd.jpg` | Priya Nair, CEO, Acme Ltd |
 | Sponsor logo | `01 - Paytm.png` | 1st sponsor |
 | Event photo | `cerebro.jpg` | must match the event's short ID |
@@ -100,11 +101,11 @@ The website reads names, positions and order **from the file name**.
 
 1. **Straight from a phone or camera is perfect**, iPhone photos included. Don't crop, shrink or convert anything: the website does it.
 2. **People:** upright photo, head and shoulders, face in the top half, plain background.
-   **Events:** a wide photo, or the event's poster (it's shown whole). **Slideshow:** wide photo, action in the middle.
+   **Events and slideshow:** wide photo, action in the middle.
 3. **Don't send photos through WhatsApp.** It makes them blurry. Use Google Drive or a cable.
    Google Drive gives several photos as a `.zip`: unzip it on your laptop first, then upload the photos.
 
-Pick your best 30–50 photos per album. The gallery is for highlights. GitHub takes files up to 25 MB.
+Pick your best photos (30–50 per event). The gallery is for highlights. GitHub takes files up to 25 MB.
 
 The sample photos (named `SAMPLE - …`) hide themselves as soon as you upload a real one.
 Delete them whenever you like, except in the Website team folder.
@@ -118,7 +119,7 @@ Delete them whenever you like, except in the Website team folder.
 - A one-line category ("Comedy show") and a one-line tagline
 - 1–3 numbers, e.g. prize money, registrations
 - 2–4 short bullet points
-- A wide photo or its poster, renamed `comedy-night.jpg`
+- A wide photo, renamed `comedy-night.jpg`
 - The registration form link (or `none` if it has no sign-ups)
 
 Then:
@@ -140,7 +141,7 @@ For more than one day, write the date like `20–22 November 2026`.
 
 **A team member:** photo (upright), full name, position, and which group they're in.
 
-**A gallery album:** the year, a short album name, and the photos.
+**Gallery photos:** just the photos. A folder per year keeps them tidy, e.g. `2026 - Delphique`.
 
 **A speaker:** photo (upright), full name, designation and company.
 
@@ -156,7 +157,7 @@ For more than one day, write the date like `20–22 November 2026`.
 - [ ] photos → team: delete last year's Core and Junior folders, upload the new team (leave "Website team")
 - [ ] photos → speakers and logos → partners: replace last year's
 - [ ] photos → hero: this year's slideshow photos
-- [ ] photos → gallery: add last year's event as a new album
+- [ ] photos → gallery: add last year's photos (in a new folder like `2026 - Delphique`)
 - [ ] downloads + links.txt: the new brochure
 - [ ] joint-events.txt: add this year's joint events (old ones hide themselves)
 
