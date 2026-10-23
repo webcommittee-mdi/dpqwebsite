@@ -48,7 +48,7 @@ brochure = Delphique-Brochure-2025-26.pdf
 # People to contact from Delphique. One line per person, as many lines as you like:
 #     contact = Name | Position | Phone | Email
 # Leave out what you don't want to show, e.g.  contact = Aarav Sharma | Secretary, Delphique | +91 98765 43210
-contact = Devansh Goenka | Secretary, Delphique | +91 99535 68303 | pgdm25devansh_d@mdi.ac.in
+contact = Devansh Goenka | Secretary, Delphique | +91 99535 68303
 
 # A general Delphique email and phone (optional). Several are fine:  phone = +91 98765 43210 / +91 91234 56789
 email = delphique@mdi.ac.in
