@@ -186,7 +186,8 @@ export function Carousel<T>({
         }}
         onDragStart={(e) => e.preventDefault()}
       >
-        <ul className="flex w-max gap-4 px-5 md:px-10 xl:px-16">
+        {/* Side padding matches .wrap, so the first card lines up with the heading above at every width. */}
+        <ul className="flex w-max gap-4 px-5 md:px-10 xl:px-[max(4rem,calc((100%_-_1320px)/2_+_4rem))]">
           {copies.flatMap((c) =>
             items.map((item, i) => {
               const hidden = c !== (looping ? 1 : 0);

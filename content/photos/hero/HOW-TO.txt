@@ -6,8 +6,8 @@ Name them with a number (sets the order) and a caption:
     02 - Keynote.jpg
 The caption appears beside the slideshow dots. 3 to 5 wide photos work best.
 
-Keep the main subject in the CENTRE: on laptops only the middle and right of the
-photo show; on phones the centre sits behind the text. Dark, atmospheric shots look best.
+Keep the main subject in the CENTRE: on laptops the right-hand part of the page shows the
+middle of the photo; on phones the photo is a band above the headline. Bright photos are fine.
 
 Any photo straight from a phone or camera works (iPhone photos too).
 The SAMPLE photos hide themselves as soon as you add one real photo.

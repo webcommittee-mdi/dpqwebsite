@@ -683,7 +683,8 @@ export const jointEvents: JointEvent[] = all(parse(textFile("joint-events"), { k
       if (part) words.push(part);
     }
     const [name = "", partner = "", ...extra] = words;
-    if (extra.length || (!dateRange && /\d/.test(partner))) {
+    const datey = /\b\d{1,2}[/.-]\d{1,2}\b|\b(?:19|20)\d{2}\b|\b\d{1,2}(?:st|nd|rd|th)?\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)|\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{1,2}\b/i;
+    if (extra.length || (!dateRange && datey.test(partner))) {
       note(
         `joint-events.txt: in "${name}", "${(extra.join(" ") || partner).slice(0, 40)}" couldn't be read as a date, so this event has no date and won't disappear by itself.`,
         "Write the date like  14 November 2026",

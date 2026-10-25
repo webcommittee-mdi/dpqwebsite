@@ -67,6 +67,8 @@ export function JointEvents() {
           </h2>
           <p className="lede">With MDI's clubs, committees and student interest groups.</p>
         </div>
+        {/* A search box only once the list is long enough to need one. */}
+        {upcoming.length > 6 && (
         <div className="w-full lg:max-w-[380px]">
           <label className="flex h-12 items-center gap-3 border border-line-strong px-4 transition-colors focus-within:border-paper">
             <Search size={18} className="shrink-0 text-mute" aria-hidden="true" />
@@ -88,6 +90,7 @@ export function JointEvents() {
             {query ? `${shown.length} of ${upcoming.length} events` : ""}
           </p>
         </div>
+        )}
       </div>
 
       {shown.length > 0 ? (

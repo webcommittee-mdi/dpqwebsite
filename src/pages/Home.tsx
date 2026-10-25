@@ -25,8 +25,10 @@ function Hero() {
 
   return (
     <section className="relative overflow-hidden" aria-label="Delphique">
-      {/* Photo panel: full-bleed behind the text on phones, a slanted panel on wide screens */}
-      <div className="absolute inset-0 lg:left-[44%] lg:[clip-path:polygon(14%_0,100%_0,100%_100%,0_100%)]" aria-hidden="true">
+      {/* Photo panel: a band across the top on phones (the text sits below it, on black),
+          a slanted panel on the right on wide screens. The photos stay bright; the gradients
+          only fade their edges into the page so the headline never sits on a busy photo. */}
+      <div className="absolute inset-x-0 top-0 h-[48svh] lg:inset-y-0 lg:left-[44%] lg:h-auto lg:[clip-path:polygon(14%_0,100%_0,100%_100%,0_100%)]" aria-hidden="true">
         {heroSlides.map((s, i) =>
           i < reached ? (
             <img
@@ -38,18 +40,18 @@ function Hero() {
               fetchPriority={i === 0 ? "high" : "low"}
               decoding="async"
               className="absolute inset-0 h-full w-full object-cover transition-opacity duration-[2000ms]"
-              style={{ opacity: i === slide ? 1 : 0, filter: "brightness(0.62)" }}
+              style={{ opacity: i === slide ? 1 : 0, filter: "brightness(0.82) saturate(1.05)" }}
             />
           ) : null,
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30 lg:bg-gradient-to-r lg:from-ink lg:via-ink/20 lg:to-transparent" />
-        <svg viewBox="0 0 420 420" className="absolute right-[-22%] top-[4%] w-[62vw] max-w-[440px] opacity-70 lg:right-[6%] lg:top-1/2 lg:w-[34vw] lg:-translate-y-1/2 lg:opacity-95" fill="none">
-          <path className="arc-sweep" d="M210 20 A190 190 0 0 1 210 400" stroke="#C1121F" strokeWidth="50" />
-          <path d="M210 70 A140 140 0 0 1 210 350" stroke="#C1121F" strokeWidth="1.5" opacity="0.4" />
-        </svg>
+        {/* Phones: fade the bottom of the band into the page. Wide screens: fade the left edge. */}
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/10 lg:bg-gradient-to-r lg:from-ink lg:via-ink/25 lg:to-transparent" />
+        {/* A warm, deep-red wash that ties the photos to the site's colours, and a dark foot for the slide labels. */}
+        <div className="absolute inset-0 bg-gradient-to-br from-oxblood/25 via-transparent to-transparent mix-blend-multiply" />
+        <div className="absolute inset-x-0 bottom-0 hidden h-1/3 bg-gradient-to-t from-ink/85 to-transparent lg:block" />
       </div>
 
-      <div className="wrap relative flex min-h-[calc(100svh-72px)] flex-col justify-end pb-14 pt-24 lg:justify-center lg:pb-20 lg:pt-16">
+      <div className="wrap relative flex min-h-[calc(100svh-72px)] flex-col justify-end pb-14 pt-[40svh] lg:justify-center lg:pb-20 lg:pt-16">
         <div className="max-w-[640px]">
           <h1 className="display rise mb-8 text-[clamp(2.4rem,1.6rem+3.6vw,4.6rem)] uppercase" style={{ animationDelay: "0.25s" }}>
             {site.headline.map((line, i) => (
