@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { allPhotos, contactPeople, events, jointEvents, problems, site, speakers, team } from "../content";
+import { allPhotos, contactPeople, events, jointEvents, pastSpeakers, problems, site, speakers, team } from "../content";
 import { useTitle } from "../components/ui";
 
 /**
@@ -24,7 +24,7 @@ export default function Check() {
     ["Joint events coming up", `${upcoming} (of ${jointEvents.length} listed)`],
     ["Gallery photos", allPhotos.length],
     ["Team groups", `${team.length} (${team.reduce((n, g) => n + g.people.length, 0)} people)`],
-    ["Speakers", speakers.length],
+    ["Speakers", `${speakers.length} upcoming, ${pastSpeakers.length} past`],
     ["Contact people", contactPeople.length],
     ["Event dates", site.dates || (site.eventOver ? "the event has passed" : "not set")],
   ];

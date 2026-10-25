@@ -264,7 +264,7 @@ const galleryFull = import.meta.glob<Maybe<string>>("/content/photos/gallery/**/
 const teamPhotos = import.meta.glob<Maybe<string>>("/content/photos/team/**/*.{jpg,jpeg,png,webp,heic,heif,jfif,avif,tif,tiff,JPG,JPEG,PNG,WEBP,HEIC,HEIF,JFIF,AVIF,TIF,TIFF}", {
   eager: true, import: "default", query: { w: "480", h: "600", fit: "cover", position: "top", format: "webp", quality: "70" },
 });
-const speakerPhotos = import.meta.glob<Maybe<string>>("/content/photos/speakers/*.{jpg,jpeg,png,webp,heic,heif,jfif,avif,tif,tiff,JPG,JPEG,PNG,WEBP,HEIC,HEIF,JFIF,AVIF,TIF,TIFF}", {
+const speakerPhotos = import.meta.glob<Maybe<string>>("/content/photos/speakers/**/*.{jpg,jpeg,png,webp,heic,heif,jfif,avif,tif,tiff,JPG,JPEG,PNG,WEBP,HEIC,HEIF,JFIF,AVIF,TIF,TIFF}", {
   eager: true, import: "default", query: { w: "480", h: "600", fit: "cover", position: "top", format: "webp", quality: "72" },
 });
 const logoRaster = import.meta.glob<Maybe<string>>("/content/logos/**/*.{png,webp,jpg,jpeg,jfif,heic,avif,tif,tiff,PNG,WEBP,JPG,JPEG,JFIF,HEIC,AVIF,TIF,TIFF}", {
@@ -883,13 +883,36 @@ for (const g of team) {
   }
 }
 
-export const speakers: Person[] = (() => {
+export type Speaker = Person & { year: number };
+
+/**
+ * Speakers, from content/photos/speakers/<year folder>/<photo>, e.g. "2025 - Delphique 29th edition".
+ * Nothing ever has to be removed: this edition's speakers are "upcoming" until the event's last day,
+ * then join the past speakers by themselves. A photo outside a year folder counts as this edition's.
+ */
+const thisEdition = eventYear ?? year;
+const allSpeakers: Speaker[] = (() => {
   const keys = Object.keys(photos.speakers).sort(byPath);
   const real = dedupe(keys.filter((p) => !isSample(p)));
-  const list = (real.length ? real : keys).map(personFrom(photos.speakers));
-  for (const sp of list) if (!sp.role) note(`Speaker "${sp.name}" has no designation.`, "Name the photo like  01 - Priya Nair - CEO, Acme Ltd.jpg");
-  return list;
+  return (real.length ? real : keys).map((p) => {
+    const rel = p.slice("/content/photos/speakers/".length);
+    const folder = rel.includes("/") ? rel.split("/")[0] : "";
+    const y = Number(folder.match(/(?:^|\D)((?:19|20)\d{2})(?!\d)/)?.[1] ?? 0);
+    const sp = { ...personFrom(photos.speakers)(p), year: y || thisEdition };
+    if (!sp.role) note(`Speaker "${sp.name}" has no designation.`, "Name the photo like  01 - Priya Nair - CEO, Acme Ltd.jpg");
+    if (!y)
+      note(
+        `content/photos/speakers/${rel} isn't in a folder with a year, so it's shown as a ${thisEdition} speaker.`,
+        `Put it in a folder named like  ${thisEdition} - Delphique  so it moves to Past speakers by itself after the event.`,
+      );
+    return sp;
+  });
 })();
+const isUpcoming = (sp: Speaker) => sp.year > thisEdition || (sp.year === thisEdition && !eventOver);
+/** This edition's (and any later) speakers, in file order. */
+export const speakers: Speaker[] = allSpeakers.filter(isUpcoming);
+/** Everyone who has spoken before: newest year first, then in file order. */
+export const pastSpeakers: Speaker[] = allSpeakers.filter((sp) => !isUpcoming(sp)).sort((a, b) => b.year - a.year);
 
 // Text files that were renamed so badly they couldn't be recognised
 for (const p of Object.keys(textFiles)) {

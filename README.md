@@ -59,7 +59,7 @@ The Web Committee looks after everything else: the code, the hosting and the web
 | Add a contact person (footer) | links.txt | Add a line: `contact = Name \| Position \| Phone \| Email`. One line per person. |
 | Add gallery photos | photos → gallery | See "Name things like this" below |
 | Change the team | photos → team | Delete last year's Core and Junior folders, upload the new ones. Leave "Website team" as it is |
-| Add a speaker | photos → speakers | Upload their photo. The section appears by itself |
+| Add a speaker | photos → speakers | Upload their photo into this year's folder (e.g. `2026 - Delphique 30th edition`). They show as upcoming, then move to past speakers by themselves |
 | Add a sponsor | logos → partners | Upload their logo. The section appears by itself |
 | Add or remove an event | events.txt | See the event checklist below |
 | Add a joint event (with another club) | joint-events.txt | Add one line: `event = Name \| Club \| Date \| Link` |
@@ -155,7 +155,8 @@ For more than one day, write the date like `20–22 November 2026`.
 - [ ] links.txt: the new registration forms (and `join_team` when recruiting)
 - [ ] events.txt: this year's prizes, registration numbers and bullet points
 - [ ] photos → team: delete last year's Core and Junior folders, upload the new team (leave "Website team")
-- [ ] photos → speakers and logos → partners: replace last year's
+- [ ] photos → speakers: make this year's folder (e.g. `2027 - Delphique 31st edition`) and add the speakers. Never delete old years
+- [ ] logos → partners: replace last year's
 - [ ] photos → hero: this year's slideshow photos
 - [ ] photos → gallery: add last year's photos (in a new folder like `2026 - Delphique`)
 - [ ] downloads + links.txt: the new brochure

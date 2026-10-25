@@ -1,8 +1,15 @@
 SPEAKERS
-The Speakers section on the homepage stays hidden until you add a photo here.
+One folder per year. Only ever add: nothing needs removing or renaming later.
 
-Name each photo like this:
+    2025 - Delphique 29th edition/
+    2026 - Delphique 30th edition/      <- this year's speakers go here
+
+This year's folder shows as "Upcoming" on the homepage until the event's last day
+(the dates in site.txt). After that, those speakers join "Past speakers" by themselves,
+next to every year before them.
+
+Name each photo like this (the number sets the order):
     01 - Full Name - Designation, Company.jpg
 
-BEST SIZE: portrait 4:5, at least 800 x 1000 px, head and shoulders.
-Cropped to 4:5 from the top, like team photos.
+BEST PHOTO: an upright headshot (4:5), at least 800 x 1000 px, head and shoulders,
+on a plain background. Cut from the top, like team photos.

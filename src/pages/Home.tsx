@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { contact, events, heroSlides, link, partners, previewPhotos, site, sitePhoto, speakers, team, type Event } from "../content";
+import { contact, events, heroSlides, link, partners, pastSpeakers, previewPhotos, site, sitePhoto, speakers, team, type Event, type Speaker } from "../content";
 import { Countdown } from "../components/Countdown";
 import { Lightbox } from "../components/Lightbox";
 import { Carousel } from "../components/Carousel";
@@ -223,24 +223,57 @@ function About() {
 
 /* ── Speakers (hidden until photos are added) ──────────────────────────── */
 
-function Speakers() {
-  if (!speakers.length) return null;
+function SpeakerCard({ p, past = false }: { p: Speaker; past?: boolean }) {
   return (
-    <section className="py-24 lg:py-36" aria-labelledby="speakers-title">
+    <>
+      <img src={p.photo} alt="" draggable={false} loading="lazy" decoding="async" width={480} height={600} className="mb-4 aspect-[4/5] h-auto w-full bg-stage object-cover" />
+      <p className="font-display text-lg leading-tight">{p.name}</p>
+      <p className="mt-1 text-sm text-mute">{p.role}</p>
+      {past && <p className="mt-2 text-xs uppercase tracking-[0.14em] text-gold">Delphique {p.year}</p>}
+    </>
+  );
+}
+
+/**
+ * Upcoming speakers (this edition) in a grid, and everyone who has spoken before in a
+ * strip that only ever grows. Speakers move from one to the other by themselves.
+ */
+function Speakers() {
+  if (!speakers.length && !pastSpeakers.length) return null;
+  const label = "mb-8 flex items-center gap-3 text-sm uppercase tracking-[0.16em] text-paper";
+  return (
+    <section className="overflow-hidden py-24 lg:py-36" aria-labelledby="speakers-title">
       <div className="wrap">
         <SectionHead id="speakers-title" title="Speakers">
-          Industry leaders on the Delphique {site.eventYear} stage.
+          {speakers.length ? `Industry leaders on the Delphique ${site.eventYear} stage, and the ones who came before them.` : "Industry leaders who have taken the Delphique stage."}
         </SectionHead>
-        <ul className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
-          {speakers.map((p) => (
-            <li key={p.photo}>
-              <img src={p.photo} alt="" loading="lazy" decoding="async" className="mb-4 aspect-[4/5] w-full object-cover" />
-              <p className="font-display text-lg leading-tight">{p.name}</p>
-              <p className="mt-1 text-sm text-mute">{p.role}</p>
-            </li>
-          ))}
-        </ul>
+        {speakers.length > 0 && (
+          <>
+            <h3 className={label}>
+              <span className="h-px w-8 bg-carpet" />
+              Upcoming, Delphique {site.eventYear}
+            </h3>
+            <ul className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+              {speakers.map((p) => (
+                <li key={p.photo}>
+                  <SpeakerCard p={p} />
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
+      {pastSpeakers.length > 0 && (
+        <div className={speakers.length ? "mt-20 lg:mt-28" : ""}>
+          <div className="wrap">
+            <h3 className={label}>
+              <span className="h-px w-8 bg-carpet" />
+              Past speakers
+            </h3>
+          </div>
+          <Carousel items={pastSpeakers} label="Past speakers" itemClassName="w-[168px] md:w-[210px]" render={(p) => <SpeakerCard p={p} past />} />
+        </div>
+      )}
     </section>
   );
 }
