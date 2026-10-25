@@ -6,17 +6,19 @@ import { A } from "./ui";
 
 const looksLikeForm = (href: string) => /forms|unstop|register|typeform|airtable|tally|konfhub|eventbrite/i.test(href);
 
-function Card({ ev }: { ev: JointEvent }) {
+function Card({ ev, ratio }: { ev: JointEvent; ratio: number }) {
   const body = (
     <>
-      <div className="relative mb-4 aspect-[4/5] overflow-hidden bg-stage">
+      <div className="relative mb-4 overflow-hidden bg-stage" style={{ aspectRatio: ratio }}>
         {ev.poster ? (
           <img src={ev.poster} alt={`${ev.name} poster`} draggable={false} loading="lazy" decoding="async" className="h-full w-full object-contain" />
         ) : (
-          // No poster yet: a typeset tile so the strip still looks finished.
-          <div className="flex h-full flex-col justify-between border border-line p-5">
-            <p className="text-sm text-mute">Delphique ×</p>
-            <p className="font-display text-[1.6rem] leading-tight text-gold">{ev.partner || ev.name}</p>
+          // No poster yet: a typeset tile, so the strip still looks finished.
+          <div className="flex h-full flex-col justify-between bg-gradient-to-b from-oxblood/70 via-stage to-stage p-5 ring-1 ring-inset ring-line">
+            <p className="text-[0.75rem] font-medium uppercase tracking-[0.18em] text-paper">
+              Delphique <span className="text-carpet">×</span> {ev.partner || "MDI"}
+            </p>
+            <p className="font-display text-[1.75rem] leading-[1.1] text-paper text-balance">{ev.name}</p>
           </div>
         )}
       </div>
@@ -47,7 +49,7 @@ export function JointEvents() {
     const now = Date.now();
     return jointEvents
       .filter((e) => Number.isNaN(e.endsAt) || e.endsAt > now)
-      .sort((a, b) => (Number.isNaN(a.endsAt) ? 1 : Number.isNaN(b.endsAt) ? -1 : a.endsAt - b.endsAt));
+      .sort((a, b) => (Number.isNaN(a.endsAt) ? (Number.isNaN(b.endsAt) ? 0 : 1) : Number.isNaN(b.endsAt) ? -1 : a.endsAt - b.endsAt)); // undated last, in file order
   }, []);
 
   const shown = useMemo(() => {
@@ -55,6 +57,14 @@ export function JointEvents() {
     if (!words.length) return upcoming;
     return upcoming.filter((e) => words.every((w) => e.search.includes(w)));
   }, [query, upcoming]);
+
+  // Every card in the strip has the same shape: the middle (median) shape of the posters,
+  // kept between a phone story (1:2) and a square, so no poster is shrunk or cut.
+  const ratio = useMemo(() => {
+    const r = upcoming.map((e) => e.posterRatio).filter((x): x is number => !!x).sort((a, b) => a - b);
+    const mid = r.length ? r[Math.floor(r.length / 2)] : 0.8;
+    return Math.min(1, Math.max(0.5, mid));
+  }, [upcoming]);
 
   if (!upcoming.length) return null;
 
@@ -94,7 +104,7 @@ export function JointEvents() {
       </div>
 
       {shown.length > 0 ? (
-        <Carousel items={shown} render={(ev) => <Card ev={ev} />} itemClassName="w-[200px] md:w-[240px]" label="Joint events" auto={!query} />
+        <Carousel items={shown} render={(ev) => <Card ev={ev} ratio={ratio} />} itemClassName="w-[200px] md:w-[240px]" label="Joint events" auto={!query} />
       ) : (
         <div className="wrap">
           <p className="lede">

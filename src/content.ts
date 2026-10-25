@@ -273,8 +273,8 @@ const logoRaster = import.meta.glob<Maybe<string>>("/content/logos/**/*.{png,web
 const logoVector = import.meta.glob<string>("/content/logos/**/*.{svg,SVG}", {
   eager: true, import: "default", query: "?url",
 });
-const jointPosters = import.meta.glob<Maybe<string>>("/content/photos/joint-events/*.{jpg,jpeg,png,webp,heic,heif,jfif,avif,tif,tiff,JPG,JPEG,PNG,WEBP,HEIC,HEIF,JFIF,AVIF,TIF,TIFF}", {
-  eager: true, import: "default", query: { w: "640", format: "webp", quality: "72", withoutEnlargement: "" },
+const jointPosters = import.meta.glob<Maybe<Meta>>("/content/photos/joint-events/*.{jpg,jpeg,png,webp,heic,heif,jfif,avif,tif,tiff,JPG,JPEG,PNG,WEBP,HEIC,HEIF,JFIF,AVIF,TIF,TIFF}", {
+  eager: true, import: "default", query: { w: "640", format: "webp", quality: "80", withoutEnlargement: "", as: "meta:src;width;height" },
 });
 const downloads = import.meta.glob<string>("/content/downloads/*.{pdf,PDF,ppt,pptx,PPT,PPTX,doc,docx,DOC,DOCX,zip,ZIP}", {
   eager: true, import: "default", query: "?url",
@@ -644,7 +644,8 @@ export const events: Event[] = eventSections().map(({ id, fields }) => {
 
 /* ── Joint events ──────────────────────────────────────────────────────── */
 
-export type JointEvent = { name: string; partner: string; date: string; link: string; poster?: string; endsAt: number; search: string };
+/** posterRatio = width / height of the poster (0.5 for a phone-story poster, 0.8 for an Instagram post). */
+export type JointEvent = { name: string; partner: string; date: string; link: string; poster?: string; posterRatio?: number; endsAt: number; search: string };
 
 const URLISH = /\bhttps?:\/\/\S+|\bwww\.\S+|\b(?:instagram\.com|forms\.gle|unstop\.com|docs\.google\.com|bit\.ly|lu\.ma|linkedin\.com)\/\S*/i;
 
@@ -696,7 +697,10 @@ export const jointEvents: JointEvent[] = all(parse(textFile("joint-events"), { k
       partner: partner.replace(/^with\s+/i, ""),
       date,
       link,
-      poster: findByName(photos.posters, "/content/photos/joint-events/", name, true),
+      ...(() => {
+        const p = findByName(photos.posters, "/content/photos/joint-events/", name, true);
+        return p ? { poster: p.src, posterRatio: p.width / p.height } : {};
+      })(),
       endsAt: dateRange ? dateRange.end : endOfLastDay(""),
       search: `${name} ${partner} ${date} ${dateText}`.toLowerCase(),
     };
@@ -705,7 +709,7 @@ export const jointEvents: JointEvent[] = all(parse(textFile("joint-events"), { k
 
 for (const p of inFolder(photos.posters, "/content/photos/joint-events/")) {
   const k = slug(stripExt(fileName(p)));
-  if (!jointEvents.some((e) => e.poster === photos.posters[p]) && !jointEvents.some((e) => slug(e.name) === k)) {
+  if (!jointEvents.some((e) => e.poster === photos.posters[p].src) && !jointEvents.some((e) => slug(e.name) === k)) {
     note(`content/photos/joint-events/${fileName(p)} doesn't match any joint event, so it isn't shown.`, "Name the poster exactly like the event in joint-events.txt, e.g. Alumni Talk.jpg");
   }
 }
