@@ -87,7 +87,7 @@ export function JointEvents() {
       <div className="wrap mb-10 flex flex-col gap-8 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <h2 id="joint-title" className="display mb-4 text-[clamp(1.9rem,3.4vw,2.8rem)]">
-            Joint Events and Panel Discussions
+            Joint Events & Panel Discussions
           </h2>
           <p className="lede">With MDI's clubs, committees and student interest groups, and conversations with leaders from industry.</p>
         </div>
@@ -118,7 +118,7 @@ export function JointEvents() {
       </div>
 
       {shown.length > 0 ? (
-        <Carousel items={shown} render={(ev) => <Card ev={ev} ratio={ratio} />} itemClassName="w-[200px] md:w-[240px]" label="Joint events and panel discussions" auto={!query} />
+        <Carousel items={shown} render={(ev) => <Card ev={ev} ratio={ratio} />} itemClassName="w-[200px] md:w-[240px]" label="Joint events & panel discussions" auto={!query} />
       ) : (
         <div className="wrap">
           <p className="lede">

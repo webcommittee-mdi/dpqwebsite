@@ -24,8 +24,8 @@ register =
 # An event with no sign-ups at all (like a show)? Write  none  and its card has no button.
 # Registrations are on but the form link isn't ready (e.g. the Unstop page)? Write  open
 # and the card says "Registrations Open". Paste the link over it when you have it.
-register_cerebro = open
-register_vincenza = open
+register_cerebro =
+register_vincenza =
 register_panel-discussion =
 register_mun =
 
