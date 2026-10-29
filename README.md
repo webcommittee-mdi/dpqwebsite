@@ -13,7 +13,7 @@ You change something, press **Commit changes** (that means *Save*), wait 3 minut
 ⚠️ **Everything you upload is public**, and stays visible in the history even after you delete it.
 Don't upload anything private (phone lists, ID cards, unreleased results).
 
-**Who looks after what:** Delphique changes the **content** folder (except the "Website team" photos).
+**Who looks after what:** Delphique changes the **content** folder (except the "Website Team" photos).
 The Web Committee looks after everything else: the code, the hosting and the website team.
 
 ---
@@ -47,9 +47,10 @@ The Web Committee looks after everything else: the code, the hosting and the web
 
 | I want to… | Open | Do this |
 |---|---|---|
-| Open registrations | links.txt | `register =` is the Register button at the top of every page. Paste the form link after it. |
+| Open registrations | links.txt | `register =` is the Register Now button at the top of every page. Paste the form link after it. |
+| Registrations are on, form link not ready yet | links.txt | Write `open`. The button says "Registrations Open". Paste the link over it later. |
 | Give one event its own form | links.txt | `register_cerebro =` is the button on Cerebro's card. Paste its link there. |
-| Close registrations | links.txt | Write `closed` instead of the link. The button says "Registrations closed". |
+| Close registrations | links.txt | Write `closed` instead of the link. The button says "Registrations Closed". |
 | An event with no sign-ups (a show) | links.txt | Write `none`. Its card has no button. |
 | Show the dates | site.txt | `dates = 4–5 December 2026`, with the year. Then open **/check** and see that *Event dates* shows the right days. |
 | Start the countdown | nothing | It starts by itself from `dates`, and stops on the day. |
@@ -58,18 +59,20 @@ The Web Committee looks after everything else: the code, the hosting and the web
 | Add Instagram, LinkedIn, email, phone | links.txt | Fill in that line. Instagram/YouTube: link or `@handle`. LinkedIn: the full link. |
 | Add a contact person (footer) | links.txt | Add a line: `contact = Name \| Position \| Phone \| Email`. One line per person. |
 | Add gallery photos | photos → gallery | See "Name things like this" below |
-| Change the team | photos → team | Delete last year's Core and Junior folders, upload the new ones. Leave "Website team" as it is |
+| Change the team | photos → team | Delete last year's Senior Members and Members folders, upload the new ones. Leave "Website Team" as it is |
+| Link a team member's LinkedIn | team.txt | Add a line: `linkedin = Name \| https://www.linkedin.com/in/…` (the name as in their photo) |
 | Add a speaker | photos → speakers | Upload their photo into this year's folder (e.g. `2026 - Delphique 30th edition`). They show as upcoming, then move to past speakers by themselves |
 | Add a sponsor | logos → partners | Upload their logo. The section appears by itself |
 | Add or remove an event | events.txt | See the event checklist below |
 | Add a joint event (with another club) | joint-events.txt | Add one line: `event = Name \| Club \| Date \| Link` |
+| Add a panel discussion | joint-events.txt | Add one line: `event = Panel Name \| Panel Discussion` (poster: photos → joint-events) |
 | Remove a joint event | nothing | It disappears by itself the day after its date |
 | Replace the brochure | downloads + links.txt | Upload the PDF, then write its name after `brochure =` |
 | Anything else | slideshow → photos → hero · our logos → logos | Read the **HOW-TO.txt** inside that folder |
 | Change the year or edition | nothing | It changes by itself every 1 January |
 
 After the event's last day, the dates and countdown hide themselves and Register buttons say
-"Registrations closed" (then "Registrations open soon" from 1 January), so last year's forms never stay up.
+"Registrations Closed" (then "Registrations Open Soon" from 1 January), so last year's forms never stay up.
 
 ---
 
@@ -81,7 +84,7 @@ The website reads names, positions and order **from the file name**.
 |---|---|---|
 | Team photo | `01 - Aarav Sharma - Secretary.jpg` | Aarav Sharma, Secretary, 1st |
 | Team photo, no position | `01 - Aarav Sharma.jpg` | Aarav Sharma |
-| Team folder | `1 - Core team` | "Core team", first group |
+| Team folder | `1 - Senior Members` | "Senior Members", first group |
 | Gallery folder (optional) | `2026 - Cerebro finals` | not shown; the newest year's photos come first |
 | Gallery photo | anything (`IMG_2201.jpg` is fine) | in name order |
 | Speaker photo | `01 - Priya Nair - CEO, Acme Ltd.jpg` | Priya Nair, CEO, Acme Ltd |
@@ -101,6 +104,8 @@ The website reads names, positions and order **from the file name**.
 
 1. **Straight from a phone or camera is perfect**, iPhone photos included. Don't crop, shrink or convert anything: the website does it.
 2. **People:** upright photo, head and shoulders, face in the top half, plain background.
+   **Team photos:** 4:5 (e.g. 1080 × 1350 px), head and shoulders, in front of the red brick wall
+   like the rest of the team. The full checklist is in **photos → team → HOW-TO.txt**.
    **Events and slideshow:** wide photo, action in the middle.
 3. **Don't send photos through WhatsApp.** It makes them blurry. Use Google Drive or a cable.
    Google Drive gives several photos as a `.zip`: unzip it on your laptop first, then upload the photos.
@@ -108,7 +113,7 @@ The website reads names, positions and order **from the file name**.
 Pick your best photos (30–50 per event). The gallery is for highlights. GitHub takes files up to 25 MB.
 
 The sample photos (named `SAMPLE - …`) hide themselves as soon as you upload a real one.
-Delete them whenever you like, except in the Website team folder.
+Delete them whenever you like, except in the Website Team folder.
 
 ---
 
@@ -139,7 +144,7 @@ event = Alumni Talk | Alumni Committee | 14 November 2026 | https://forms.gle/..
 Poster goes in **photos → joint-events**, named like the event: `Alumni Talk.jpg`.
 For more than one day, write the date like `20–22 November 2026`.
 
-**A team member:** photo (upright), full name, position, and which group they're in.
+**A team member:** photo (upright), full name, position (optional), which group they're in, and their LinkedIn link.
 
 **Gallery photos:** just the photos. A folder per year keeps them tidy, e.g. `2026 - Delphique`.
 
@@ -154,13 +159,14 @@ For more than one day, write the date like `20–22 November 2026`.
 - [ ] site.txt: new `dates`, and the `stat =` numbers
 - [ ] links.txt: the new registration forms (and `join_team` when recruiting)
 - [ ] events.txt: this year's prizes, registration numbers and bullet points
-- [ ] photos → team: delete last year's Core and Junior folders, upload the new team (leave "Website team")
+- [ ] photos → team: delete last year's Senior Members and Members folders, upload the new team (leave "Website Team")
+- [ ] team.txt: the new team's LinkedIn links
 - [ ] photos → speakers: make this year's folder (e.g. `2027 - Delphique 31st edition`) and add the speakers. Never delete old years
 - [ ] logos → partners: replace last year's
 - [ ] photos → hero: this year's slideshow photos
 - [ ] photos → gallery: add last year's photos (in a new folder like `2026 - Delphique`)
 - [ ] downloads + links.txt: the new brochure
-- [ ] joint-events.txt: add this year's joint events (old ones hide themselves)
+- [ ] joint-events.txt: add this year's joint events and panel discussions (dated ones hide themselves)
 
 The year, the edition (30th, 31st…) and "Thirty years" update themselves.
 

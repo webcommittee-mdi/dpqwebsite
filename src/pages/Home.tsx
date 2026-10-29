@@ -5,7 +5,8 @@ import { Countdown } from "../components/Countdown";
 import { Lightbox } from "../components/Lightbox";
 import { Carousel } from "../components/Carousel";
 import { JointEvents } from "../components/JointEvents";
-import { A, BrochureButton, RegisterButton, Rich, SectionHead, useTitle } from "../components/ui";
+import { A, BrochureButton, Ordinals, RegisterButton, Rich, SectionHead, useTitle } from "../components/ui";
+import { PersonCard } from "../components/PersonCard";
 
 const reducedMotion = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -28,27 +29,45 @@ function Hero() {
       {/* Photo panel: a band across the top on phones (the text sits below it, on black),
           a slanted panel on the right on wide screens. The photos stay bright; the gradients
           only fade their edges into the page so the headline never sits on a busy photo. */}
-      <div className="absolute inset-x-0 top-0 h-[48svh] lg:inset-y-0 lg:left-[44%] lg:h-auto lg:[clip-path:polygon(14%_0,100%_0,100%_100%,0_100%)]" aria-hidden="true">
-        {heroSlides.map((s, i) =>
-          i < reached ? (
+      <div className="absolute inset-x-0 top-0 h-[48svh] bg-ink lg:inset-y-0 lg:left-[44%] lg:h-auto lg:[clip-path:polygon(14%_0,100%_0,100%_100%,0_100%)]" aria-hidden="true">
+        {heroSlides.map((s, i) => {
+          if (i >= reached) return null;
+          const common = {
+            src: s.src,
+            srcSet: s.small ? `${s.small} 900w, ${s.src} 1920w` : undefined,
+            alt: "",
+            fetchPriority: (i === 0 ? "high" : "low") as "high" | "low",
+            decoding: "async" as const,
+          };
+          return s.graphic ? (
+            // A graphic (the 30-years mark, a ranking) is shown whole and a little see-through,
+            // inset from the slanted edge so nothing is cut off.
+            <div
+              key={s.src}
+              className="absolute inset-0 px-6 pb-[16%] pt-6 transition-opacity duration-[2000ms] lg:py-[9%] lg:pl-[22%] lg:pr-[9%]"
+              style={{ opacity: i === slide ? 1 : 0 }}
+            >
+              {/* "lighten": a graphic's own black background melts into the page instead of showing as a box. */}
+              <img {...common} sizes="(min-width: 1024px) 40vw, 90vw" className="h-full w-full object-contain mix-blend-lighten" style={{ opacity: 0.88 }} />
+            </div>
+          ) : (
             <img
               key={s.src}
-              src={s.src}
-              srcSet={s.small ? `${s.small} 900w, ${s.src} 1920w` : undefined}
+              {...common}
               sizes="(min-width: 1024px) 56vw, 100vw"
-              alt=""
-              fetchPriority={i === 0 ? "high" : "low"}
-              decoding="async"
               className="absolute inset-0 h-full w-full object-cover transition-opacity duration-[2000ms]"
               style={{ opacity: i === slide ? 1 : 0, filter: "brightness(0.82) saturate(1.05)" }}
             />
-          ) : null,
-        )}
-        {/* Phones: fade the bottom of the band into the page. Wide screens: fade the left edge. */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/10 lg:bg-gradient-to-r lg:from-ink lg:via-ink/25 lg:to-transparent" />
-        {/* A warm, deep-red wash that ties the photos to the site's colours, and a dark foot for the slide labels. */}
-        <div className="absolute inset-0 bg-gradient-to-br from-oxblood/25 via-transparent to-transparent mix-blend-multiply" />
-        <div className="absolute inset-x-0 bottom-0 hidden h-1/3 bg-gradient-to-t from-ink/85 to-transparent lg:block" />
+          );
+        })}
+        {/* The shading below is for photos; it fades away while a graphic is showing. */}
+        <div className="absolute inset-0 transition-opacity duration-[2000ms]" style={{ opacity: heroSlides[slide]?.graphic ? 0 : 1 }}>
+          {/* Phones: fade the bottom of the band into the page. Wide screens: fade the left edge. */}
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/10 lg:bg-gradient-to-r lg:from-ink lg:via-ink/25 lg:to-transparent" />
+          {/* A warm, deep-red wash that ties the photos to the site's colours, and a dark foot for the slide labels. */}
+          <div className="absolute inset-0 bg-gradient-to-br from-oxblood/25 via-transparent to-transparent mix-blend-multiply" />
+          <div className="absolute inset-x-0 bottom-0 hidden h-1/3 bg-gradient-to-t from-ink/85 to-transparent lg:block" />
+        </div>
       </div>
 
       <div className="wrap relative flex min-h-[calc(100svh-72px)] flex-col justify-end pb-14 pt-[40svh] lg:justify-center lg:pb-20 lg:pt-16">
@@ -66,7 +85,7 @@ function Hero() {
           <div className="rise flex flex-wrap items-center gap-4" style={{ animationDelay: "0.6s" }}>
             <RegisterButton />
             <Link to="/#events" className="btn btn-ghost">
-              Explore the events
+              Explore the Events
             </Link>
           </div>
           {(site.dates || !Number.isNaN(site.countdownTo)) && (
@@ -88,12 +107,16 @@ function Hero() {
               <button
                 key={s.src}
                 onClick={() => setSlide(i)}
-                className="flex h-8 items-center gap-2.5"
+                className="flex h-8 min-w-8 items-center justify-center gap-2.5"
                 aria-label={`Show photo: ${s.caption || i + 1}`}
                 aria-current={i === slide}
               >
                 <span className={`h-px transition-all duration-500 ${i === slide ? "w-8 bg-gold" : "w-3 bg-mute/60"}`} />
-                {i === slide && s.caption && <span className="text-sm text-gold">{s.caption}</span>}
+                {i === slide && s.caption && (
+                  <span className="text-sm text-gold">
+                    <Ordinals text={s.caption} />
+                  </span>
+                )}
               </button>
             ))}
           </div>
@@ -111,7 +134,9 @@ function Stats() {
         {site.stats.map((s) => (
           <div key={s.label} className="flex flex-col-reverse gap-2">
             <dt className="text-sm text-mute">{s.label}</dt>
-            <dd className="font-display text-[clamp(2rem,3.6vw,3rem)] leading-none text-gold">{s.value}</dd>
+            <dd className="font-display text-[clamp(2rem,3.6vw,3rem)] leading-none text-gold">
+              <Ordinals text={s.value} />
+            </dd>
           </div>
         ))}
       </dl>
@@ -121,14 +146,32 @@ function Stats() {
 
 /* ── Events ────────────────────────────────────────────────────────────── */
 
-/** `wide` = the last card when there is an odd number of events: it spans the full row, photo beside text. */
-function EventCard({ ev, wide = false }: { ev: Event; wide?: boolean }) {
+/**
+ * One flagship event per row: the poster (or photo) beside the text, swapping sides row by row.
+ * Posters are always shown whole, never cropped, so no line of them is ever cut off.
+ * A wide photo fills its half of the row instead.
+ */
+function EventCard({ ev, flip = false }: { ev: Event; flip?: boolean }) {
+  const poster = Boolean(ev.photo && (ev.photoRatio ?? 1) < 1.05);
   const hasMedia = Boolean(ev.photo || ev.logo);
   return (
-    <article className={`flex flex-col bg-ink ${wide ? "md:col-span-2 md:grid md:grid-cols-2" : ""}`}>
+    <article className={`bg-ink md:grid md:items-stretch ${hasMedia ? (flip ? "md:grid-cols-[minmax(0,7fr)_minmax(0,4fr)]" : "md:grid-cols-[minmax(0,4fr)_minmax(0,7fr)]") : ""}`}>
       {hasMedia && (
-        <div className={`relative aspect-[16/9] overflow-hidden bg-stage ${wide ? "md:aspect-auto md:min-h-full" : ""}`}>
-          {ev.photo && <img src={ev.photo} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" style={{ filter: "brightness(0.7)" }} />}
+        <div className={`relative overflow-hidden ${flip ? "md:order-2" : ""} ${poster ? "md:flex md:items-center" : "aspect-[4/3] bg-stage md:aspect-auto md:min-h-[320px]"}`}>
+          {ev.photo &&
+            (poster ? (
+              <img
+                src={ev.photo}
+                alt={`${ev.title} poster`}
+                loading="lazy"
+                decoding="async"
+                width={1080}
+                height={Math.round(1080 / (ev.photoRatio ?? 0.75))}
+                className="block h-auto w-full"
+              />
+            ) : (
+              <img src={ev.photo} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" style={{ filter: "brightness(0.85)" }} />
+            ))}
           {ev.logo && (
             <div className="absolute bottom-4 left-4 bg-white px-3 py-2">
               <img src={ev.logo} alt={`${ev.title} logo`} className="h-10 w-auto max-w-[180px] object-contain" />
@@ -136,7 +179,7 @@ function EventCard({ ev, wide = false }: { ev: Event; wide?: boolean }) {
           )}
         </div>
       )}
-      <div className={`flex flex-1 flex-col p-6 md:p-8 lg:p-10 ${wide && !hasMedia ? "md:col-span-2" : ""}`}>
+      <div className="flex flex-col justify-center p-6 sm:p-8 lg:px-14 lg:py-12">
         <p className="mb-2 text-sm text-carpet">{ev.category}</p>
         <h3 className="display mb-3 text-[clamp(1.9rem,3vw,2.6rem)]">{ev.title}</h3>
         {ev.tagline && <p className="mb-6 font-display text-[1.125rem] italic leading-snug text-mute">{ev.tagline}</p>}
@@ -150,7 +193,7 @@ function EventCard({ ev, wide = false }: { ev: Event; wide?: boolean }) {
             ))}
           </dl>
         )}
-        <ul className="mb-8 flex flex-col gap-2.5">
+        <ul className="mb-8 flex max-w-[60ch] flex-col gap-2.5">
           {ev.points.map((p) => (
             <li key={p} className="flex gap-3 text-[0.9375rem] leading-relaxed text-mute">
               <span className="mt-[0.7em] h-px w-3 shrink-0 bg-carpet" />
@@ -159,7 +202,7 @@ function EventCard({ ev, wide = false }: { ev: Event; wide?: boolean }) {
           ))}
         </ul>
         {ev.reg.state !== "none" && (
-          <div className="mt-auto">
+          <div>
             <RegisterButton reg={ev.reg} label={`Register for ${ev.title}`} />
           </div>
         )}
@@ -173,12 +216,13 @@ function Events() {
   return (
     <section id="events" className="py-24 lg:py-36" aria-labelledby="events-title">
       <div className="wrap">
-        <SectionHead id="events-title" title="Flagship events">
+        <SectionHead id="events-title" title="Flagship Events">
           Competitions and conversations that bring students from India's leading B-schools to MDI every year.
         </SectionHead>
-        <div className="grid gap-px bg-line md:grid-cols-2">
+        {/* Phones: clear space between events, so each poster sits with its own text. Wider: hairlines. */}
+        <div className="flex flex-col gap-14 md:gap-px md:bg-line">
           {events.map((ev, i) => (
-            <EventCard key={ev.id} ev={ev} wide={events.length % 2 === 1 && i === events.length - 1} />
+            <EventCard key={ev.id} ev={ev} flip={i % 2 === 1} />
           ))}
         </div>
       </div>
@@ -213,7 +257,7 @@ function About() {
             </blockquote>
           )}
           <Link to="/about" className="link text-[0.9375rem]">
-            Read about Delphique and MDI
+            Read About Delphique and MDI
           </Link>
         </div>
       </div>
@@ -229,7 +273,7 @@ function SpeakerCard({ p, past = false }: { p: Speaker; past?: boolean }) {
       <img src={p.photo} alt="" draggable={false} loading="lazy" decoding="async" width={480} height={600} className="mb-4 aspect-[4/5] h-auto w-full bg-stage object-cover" />
       <p className="font-display text-lg leading-tight">{p.name}</p>
       <p className="mt-1 text-sm text-mute">{p.role}</p>
-      {past && <p className="mt-2 text-xs uppercase tracking-[0.14em] text-gold">Delphique {p.year}</p>}
+      {past && <p className="mt-2 text-sm text-gold">Delphique {p.year}</p>}
     </>
   );
 }
@@ -240,7 +284,7 @@ function SpeakerCard({ p, past = false }: { p: Speaker; past?: boolean }) {
  */
 function Speakers() {
   if (!speakers.length && !pastSpeakers.length) return null;
-  const label = "mb-8 flex items-center gap-3 text-sm uppercase tracking-[0.16em] text-paper";
+  const label = "mb-8 flex items-center gap-3 text-base font-medium tracking-[0.02em] text-paper";
   return (
     <section className="overflow-hidden py-24 lg:py-36" aria-labelledby="speakers-title">
       <div className="wrap">
@@ -251,7 +295,7 @@ function Speakers() {
           <>
             <h3 className={label}>
               <span className="h-px w-8 bg-carpet" />
-              Upcoming, Delphique {site.eventYear}
+              Upcoming at Delphique {site.eventYear}
             </h3>
             <ul className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
               {speakers.map((p) => (
@@ -268,7 +312,7 @@ function Speakers() {
           <div className="wrap">
             <h3 className={label}>
               <span className="h-px w-8 bg-carpet" />
-              Past speakers
+              Past Speakers
             </h3>
           </div>
           <Carousel items={pastSpeakers} label="Past speakers" itemClassName="w-[168px] md:w-[210px]" render={(p) => <SpeakerCard p={p} past />} />
@@ -290,7 +334,7 @@ function GalleryPreview() {
   return (
     <section className="py-24 lg:py-36" aria-labelledby="gallery-title">
       <div className="wrap">
-        <SectionHead id="gallery-title" title="Moments from past editions" />
+        <SectionHead id="gallery-title" title="Moments From Past Editions" />
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
           {photos.map((p, i) => (
             <button
@@ -305,7 +349,7 @@ function GalleryPreview() {
         </div>
         <div className="mt-10">
           <Link to="/gallery" className="btn btn-ghost">
-            Open the full gallery
+            Open the Full Gallery
           </Link>
         </div>
       </div>
@@ -317,33 +361,23 @@ function GalleryPreview() {
 /* ── Team strip: drifts on its own, with arrows, a slider and swipe ───── */
 
 function TeamStrip() {
-  const people = team.flatMap((g) => g.people);
+  // The website team is on the Team page, not in this strip.
+  const people = team.filter((g) => !g.website).flatMap((g) => g.people.map((p) => ({ ...p, role: p.role || g.member })));
   const join = link("join_team");
   if (!people.length) return null;
   return (
     <section className="overflow-hidden border-t border-line bg-stage py-24 lg:py-36" aria-labelledby="team-title">
       <div className="wrap">
-        <SectionHead id="team-title" title="The people behind Delphique" />
+        <SectionHead id="team-title" title="The People Behind Delphique" />
       </div>
-      <Carousel
-        items={people}
-        label="Team members"
-        itemClassName="w-[168px] md:w-[200px]"
-        render={(p) => (
-          <>
-            <img src={p.photo} alt="" draggable={false} loading="lazy" decoding="async" width={480} height={600} className="mb-3 aspect-[4/5] h-auto w-full bg-ink object-cover" />
-            <p className="truncate font-display text-[1.0625rem] leading-tight">{p.name}</p>
-            <p className="mt-1 truncate text-sm text-mute">{p.role}</p>
-          </>
-        )}
-      />
+      <Carousel items={people} label="Team members" itemClassName="w-[168px] md:w-[200px]" render={(p) => <PersonCard p={p} />} />
       <div className="wrap mt-12 flex flex-wrap gap-4">
         <Link to="/team" className="btn btn-ghost">
-          Meet the whole team
+          Meet the Whole Team
         </Link>
         {join && (
           <A href={join} className="btn btn-primary">
-            Join the team
+            Join the Team
           </A>
         )}
       </div>
@@ -361,7 +395,7 @@ function Partners() {
         {partners.length > 0 && (
           <>
             <h2 id="partners-title" className="mb-10 text-center font-display text-2xl text-mute">
-              Our partners
+              Our Partners
             </h2>
             {/* Light tiles so any logo (dark, coloured, or a JPG with a white box) stays visible. */}
             <ul className="mb-20 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
@@ -376,7 +410,7 @@ function Partners() {
         <div className="grid gap-8 border border-line p-8 md:p-12 lg:grid-cols-[1.4fr_1fr] lg:items-center">
           <div>
             <h2 id={partners.length ? undefined : "partners-title"} className="display mb-4 text-[clamp(1.75rem,3vw,2.5rem)]">
-              Partner with Delphique
+              Partner With Delphique
             </h2>
             <p className="lede">
               Put your brand in front of students from India's leading B-schools across two days of competitions, panels and live projects.
@@ -385,7 +419,7 @@ function Partners() {
           <div className="flex flex-wrap gap-4 lg:justify-end">
             {partnerLink && (
               <A href={partnerLink} className="btn btn-primary">
-                Partner with us
+                Partner With Us
               </A>
             )}
             <BrochureButton />
@@ -404,7 +438,7 @@ function FinalCall() {
     <section className="relative overflow-hidden bg-oxblood py-28 lg:py-40">
       {photo && <img src={photo} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-25 mix-blend-luminosity" />}
       <div className="wrap relative text-center">
-        <h2 className="display mx-auto mb-6 max-w-[16ch] text-[clamp(2.6rem,6vw,5rem)]">Be part of the {site.edition} edition</h2>
+        <h2 className="display mx-auto mb-6 max-w-[16ch] text-[clamp(2.6rem,6vw,5rem)]">Be Part of the <Ordinals text={site.edition} /> Edition</h2>
         <p className="mx-auto mb-12 max-w-[48ch] text-[1.0625rem] leading-relaxed text-paper/80">
           {[site.dates, site.venue].filter(Boolean).join(", ") || site.venue}
         </p>
@@ -423,9 +457,9 @@ export default function Home() {
     <>
       <Hero />
       <Stats />
+      <About />
       <Events />
       <JointEvents />
-      <About />
       <Speakers />
       <GalleryPreview />
       <TeamStrip />

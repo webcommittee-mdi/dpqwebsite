@@ -235,6 +235,19 @@ function nameParts(name: string) {
   }
   return parts;
 }
+/** Small words that stay lower-case inside a title ("30 Years of Legacy"). */
+const SMALL_WORDS = /^(a|an|and|as|at|but|by|for|in|of|on|or|the|to|with|via|vs\.?|x)$/i;
+/**
+ * "Panel discussion" -> "Panel Discussion" for captions and group names taken from file and
+ * folder names. Only lower-case first letters change; anything typed in capitals (MDI, B-School)
+ * stays as it is. (File names can't be fixed by renaming: Macs treat "a.jpg" and "A.jpg" as one file.)
+ */
+export function titleCase(s: string) {
+  return s
+    .split(/(\s+)/)
+    .map((w, i) => (i > 0 && SMALL_WORDS.test(w) ? w : w.replace(/^([("'“‘]*)([a-z])/, (_, p: string, c: string) => p + c.toUpperCase())))
+    .join("");
+}
 const byPath = (a: string, b: string) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
 
 /* ── Image globs (one per size; paths must be written out literally) ───── */
@@ -243,14 +256,14 @@ type Meta = { src: string; width: number; height: number };
 // Photos are processed at build time. A photo that can't be read comes through as null.
 type Maybe<T> = T | null;
 
-const heroLarge = import.meta.glob<Maybe<string>>("/content/photos/hero/*.{jpg,jpeg,png,webp,heic,heif,jfif,avif,tif,tiff,JPG,JPEG,PNG,WEBP,HEIC,HEIF,JFIF,AVIF,TIF,TIFF}", {
-  eager: true, import: "default", query: { w: "1920", format: "webp", quality: "72", withoutEnlargement: "" },
+const heroLarge = import.meta.glob<Maybe<Meta>>("/content/photos/hero/*.{jpg,jpeg,png,webp,heic,heif,jfif,avif,tif,tiff,JPG,JPEG,PNG,WEBP,HEIC,HEIF,JFIF,AVIF,TIF,TIFF}", {
+  eager: true, import: "default", query: { w: "1920", format: "webp", quality: "72", withoutEnlargement: "", as: "meta:src;width;height" },
 });
 const heroSmall = import.meta.glob<Maybe<string>>("/content/photos/hero/*.{jpg,jpeg,png,webp,heic,heif,jfif,avif,tif,tiff,JPG,JPEG,PNG,WEBP,HEIC,HEIF,JFIF,AVIF,TIF,TIFF}", {
   eager: true, import: "default", query: { w: "900", format: "webp", quality: "70", withoutEnlargement: "" },
 });
-const eventPhotos = import.meta.glob<Maybe<string>>("/content/photos/events/*.{jpg,jpeg,png,webp,heic,heif,jfif,avif,tif,tiff,JPG,JPEG,PNG,WEBP,HEIC,HEIF,JFIF,AVIF,TIF,TIFF}", {
-  eager: true, import: "default", query: { w: "1280", format: "webp", quality: "70", withoutEnlargement: "" },
+const eventPhotos = import.meta.glob<Maybe<Meta>>("/content/photos/events/*.{jpg,jpeg,png,webp,heic,heif,jfif,avif,tif,tiff,JPG,JPEG,PNG,WEBP,HEIC,HEIF,JFIF,AVIF,TIF,TIFF}", {
+  eager: true, import: "default", query: { w: "1080", format: "webp", quality: "78", withoutEnlargement: "", as: "meta:src;width;height" },
 });
 const sitePhotos = import.meta.glob<Maybe<string>>("/content/photos/site/*.{jpg,jpeg,png,webp,heic,heif,jfif,avif,tif,tiff,JPG,JPEG,PNG,WEBP,HEIC,HEIF,JFIF,AVIF,TIF,TIFF}", {
   eager: true, import: "default", query: { w: "1400", format: "webp", quality: "72", withoutEnlargement: "" },
@@ -352,6 +365,7 @@ const links = parse(linksFile, { known: LINK_KEYS }).root;
 
 const NONE = /^(none|nil|n\/a|na|no|-+|not applicable|no (registrations?|sign[- ]?ups?|forms?|buttons?|links?)\b.*)\W*$/i;
 const CLOSED = /^(closed?|over|ended|registrations? (are |now )?closed)\W*$/i;
+const OPEN_NO_LINK = /^(open(ed)?|live|registrations? (are |now )?open)\W*$/i;
 const DOC = /\.(pdf|pptx?|docx?|zip)$/i;
 
 const downloadFiles = Object.keys(downloads);
@@ -416,25 +430,61 @@ export const contact = {
     .map((p) => ({ href: `tel:${p.replace(/[^\d+]/g, "")}`, text: p.replace(/^(tel|phone|mobile|ph)[:.\s-]*/i, "") })),
 };
 
-export type ContactPerson = { name: string; role: string; phones: { href: string; text: string }[]; emails: { href: string; text: string }[] };
+/* ── LinkedIn profiles (team.txt) ──────────────────────────────────────── */
+
+/** "linkedin.com/in/x?utm_source=…" -> "https://www.linkedin.com/in/x" */
+const cleanLinkedIn = (raw: string) => {
+  const url = resolveLink(raw.match(/(?:https?:\/\/)?(?:[a-z]{2,3}\.)?(?:www\.)?linkedin\.com\/\S+/i)?.[0] ?? "");
+  if (!url) return "";
+  const u = url.startsWith("http") ? url : `https://${url}`;
+  return u.replace(/[?#].*$/, "").replace(/\/+$/, "").replace(/^https?:\/\/(?:[a-z]{2,3}\.)?(?:www\.)?linkedin\.com/i, "https://www.linkedin.com");
+};
 
 /**
- * People to contact, from  contact = Name | Position | Phone | Email  lines in links.txt.
+ * team.txt:  linkedin = Name | https://www.linkedin.com/in/…  (one line per person).
+ * Matched to team photos (and contact names) by name, ignoring capitals, spaces and dots.
+ */
+const teamLinks = new Map<string, { name: string; url: string; line: string }>();
+for (const line of all(parse(textFile("team"), { known: new Set(["linkedin"]), bare: "linkedin" }).root, "linkedin")) {
+  const parts = line.split("|").map((x) => x.trim());
+  const url = cleanLinkedIn(line);
+  const name = parts.find((x) => x && !/linkedin\.com|https?:|www\./i.test(x)) ?? "";
+  if (!name || !url) {
+    note(`team.txt: "${line.slice(0, 60)}" needs both a name and a LinkedIn link.`, "Write it as  linkedin = Aarav Sharma | https://www.linkedin.com/in/aarav-sharma");
+    continue;
+  }
+  teamLinks.set(slug(name), { name, url, line });
+}
+const linkedInFor = (name: string) => teamLinks.get(slug(name))?.url ?? "";
+
+export type ContactPerson = {
+  name: string;
+  role: string;
+  phones: { href: string; text: string }[];
+  emails: { href: string; text: string }[];
+  linkedin: string;
+};
+
+/**
+ * People to contact, from  contact = Name | Position | Phone | Email | LinkedIn  lines in links.txt.
  * Parts can come in any order and any can be left out; commas work instead of | too.
+ * Without a LinkedIn link on the line, the one in team.txt for the same name is used.
  */
 export const contactPeople: ContactPerson[] = all(links, "contact").flatMap((line) => {
   const parts = (line.includes("|") ? line.split("|") : line.split(",")).map((x) => x.trim()).filter(Boolean);
-  const person: ContactPerson = { name: "", role: "", phones: [], emails: [] };
+  const person: ContactPerson = { name: "", role: "", phones: [], emails: [], linkedin: "" };
   const words: string[] = [];
   for (const part of parts) {
     const email = part.match(/[\w.+-]+@[\w-]+(\.[\w-]+)+/)?.[0];
-    if (email) person.emails.push({ href: `mailto:${email}`, text: email });
+    if (/linkedin\.com/i.test(part)) person.linkedin = cleanLinkedIn(part);
+    else if (email) person.emails.push({ href: `mailto:${email}`, text: email });
     else if ((part.match(/\d/g) ?? []).length >= 8)
       person.phones.push({ href: `tel:${part.replace(/[^\d+]/g, "")}`, text: part.replace(/^(tel|phone|mobile|ph)[:.\s-]*/i, "") });
     else words.push(part);
   }
   person.name = words[0] ?? "";
   person.role = words.slice(1).join(", ");
+  person.linkedin ||= linkedInFor(person.name);
   if (!person.name && !person.phones.length && !person.emails.length) return [];
   if (!person.name) note(`links.txt: the contact "${line.slice(0, 50)}" has no name, so only the number or email is shown.`, "Write it as  contact = Name | Position | Phone | Email");
   return [person];
@@ -448,11 +498,12 @@ export const isExternal = (href: string) => /^https?:/i.test(href);
 export const brochure = link("brochure");
 
 /** A registration button's state, from what's written in links.txt. */
-export type Reg = { state: "open" | "soon" | "closed" | "none"; href: string };
+export type Reg = { state: "open" | "live" | "soon" | "closed" | "none"; href: string };
 function regFrom(raw: string): Reg {
   const v = unquote(raw).replace(/[“”‘’]/g, "").trim();
   if (NONE.test(v)) return { state: "none", href: "" };
   if (CLOSED.test(v)) return { state: "closed", href: "" };
+  if (OPEN_NO_LINK.test(v)) return { state: "live", href: "" }; // "open": registrations are on, no form link yet
   const href = resolveLink(v); // a link anywhere in the text wins ("Closes on 20 Nov: https://…")
   return href ? { state: "open", href } : { state: "soon", href: "" };
 }
@@ -575,6 +626,8 @@ export type Event = {
   stats: { value: string; label: string }[];
   points: string[];
   photo?: string;
+  /** width / height of the photo or poster, so it is shown whole */
+  photoRatio?: number;
   logo?: string;
   reg: Reg;
 };
@@ -613,6 +666,7 @@ export const events: Event[] = eventSections().map(({ id, fields }) => {
   const title = fill(one(fields, "title")) || id.replace(/-/g, " ");
   const ids = [id, slug(title)];
   const regKey = ids.map((x) => `register_${normKey(x)}`).find((k) => links.has(k));
+  const photo = ids.map((x) => findByName(photos.events, "/content/photos/events/", x)).find(Boolean);
   return {
     id,
     title,
@@ -620,7 +674,8 @@ export const events: Event[] = eventSections().map(({ id, fields }) => {
     tagline: fill(one(fields, "tagline")),
     stats: all(fields, "stat").map(fill).map(pair),
     points: all(fields, "point").map(fill),
-    photo: ids.map((x) => findByName(photos.events, "/content/photos/events/", x)).find(Boolean),
+    photo: photo?.src,
+    photoRatio: photo ? photo.width / photo.height : undefined,
     logo: ids.map((x) => findByName(logos, "/content/logos/events/", x)).find(Boolean),
     reg: liveReg(regKey ? one(links, regKey) : ""),
   };
@@ -720,11 +775,18 @@ for (const p of inFolder(photos.posters, "/content/photos/joint-events/")) {
 export const heroSlides = (() => {
   const keys = Object.keys(hero.large).sort(byPath);
   const real = keys.filter((p) => !isSample(p));
-  return (real.length ? real : keys).map((p) => ({
-    src: hero.large[p],
-    small: hero.small[p],
-    caption: nameParts(fileName(p)).join(" – "),
-  }));
+  return (real.length ? real : keys).map((p) => {
+    const { src, width, height } = hero.large[p];
+    return {
+      src,
+      small: hero.small[p],
+      caption: titleCase(nameParts(fileName(p)).join(" – ")),
+      // A square or upright image (a poster, a ranking, an anniversary graphic) is shown whole,
+      // not cropped like a wide photo.
+      graphic: width < height * 1.15,
+      ratio: width / height,
+    };
+  });
 })();
 
 export const sitePhoto = (name: string) => findByName(photos.site, "/content/photos/site/", name);
@@ -827,8 +889,9 @@ export function previewPhotos(count: number): Photo[] {
   return out;
 }
 
-export type Person = { name: string; role: string; photo: string };
-export type Group = { title: string; people: Person[] };
+export type Person = { name: string; role: string; photo: string; linkedin?: string };
+/** `website`: the Web Committee's group, shown on the Team page but not in the homepage strip. */
+export type Group = { title: string; member: string; website: boolean; people: Person[] };
 
 /** Keeps one file per name ("x.jpg" and "x.jpg.jpg" are the same person). */
 const dedupe = (paths: string[]) => {
@@ -867,13 +930,24 @@ export const team: Group[] = (() => {
       const real = dedupe(paths.filter((p) => !isSample(p)));
       // The Web Committee's group keeps its placeholders until they add their own photos.
       const keepSamples = !anyReal || rank(group) === 2;
+      const title = titleCase(group.replace(/^\s*\d{1,3}\s*[-–—._)]?\s*/, "").trim() || group);
       return {
-        title: group.replace(/^\s*\d{1,3}\s*[-–—._)]?\s*/, "").trim() || group,
-        people: (real.length ? real : keepSamples ? paths : []).map(personFrom(photos.team)),
+        title,
+        // "Senior Members" -> "Senior Member": shown under a name in the homepage strip when there's no position.
+        member: title.replace(/\s*\(.*\)\s*$/, "").replace(/(member|organiser|organizer|coordinator|volunteer|head|lead)s$/i, "$1"),
+        website: rank(group) === 2,
+        people: (real.length ? real : keepSamples ? paths : []).map(personFrom(photos.team)).map((person) => ({ ...person, linkedin: linkedInFor(person.name) })),
       };
     })
     .filter((g) => g.people.length);
 })();
+
+{
+  const names = new Set([...team.flatMap((g) => g.people.map((p) => slug(p.name))), ...contactPeople.map((c) => slug(c.name))]);
+  for (const [key, { name }] of teamLinks) {
+    if (!names.has(key)) note(`team.txt: "${name}" doesn't match any team photo, so their LinkedIn isn't shown.`, "Spell the name exactly as in their photo's file name (or add their photo to content/photos/team).");
+  }
+}
 
 for (const g of team) {
   for (const person of g.people) {
@@ -916,7 +990,7 @@ export const pastSpeakers: Speaker[] = allSpeakers.filter((sp) => !isUpcoming(sp
 
 // Text files that were renamed so badly they couldn't be recognised
 for (const p of Object.keys(textFiles)) {
-  if (!["links", "site", "events", "joint-events"].includes(textFileKey(fileName(p)))) {
-    note(`content/${fileName(p)} isn't one of the website's files, so it was ignored.`, "The website only reads links.txt, site.txt, events.txt and joint-events.txt. Put your text in one of those.");
+  if (!["links", "site", "events", "joint-events", "team"].includes(textFileKey(fileName(p)))) {
+    note(`content/${fileName(p)} isn't one of the website's files, so it was ignored.`, "The website only reads links.txt, site.txt, events.txt, joint-events.txt and team.txt. Put your text in one of those.");
   }
 }

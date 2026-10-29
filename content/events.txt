@@ -21,28 +21,28 @@
 
 [cerebro]
 title = Cerebro
-category = The case challenge
+category = The Case Challenge
 tagline = Where ideas ignite impact: powering analysis, driving solutions.
 point = One of India's longest-running case study competitions
 point = Real industry problems that test business acumen and problem-solving
-point = Winners take home live projects and pre-placement interviews, not just cash
+point = Winners stand a chance to win exciting cash prizes and exclusive rewards!
 
 
 [vincenza]
 title = Vincenza
-category = International business plan competition
+category = International Business Plan Competition
 tagline = Show your entrepreneurial spirit and turn ideas into ventures.
-point = Pitch your business plan to angel investors and venture capitalists
-point = The top 10 teams get about six weeks of mentoring from partner VCs
+point = Present your business plan to industry leaders and unlock exciting opportunities!
+point = Shortlisted teams receive exclusive mentorship and guidance from industry experts and ecosystem partners.
 point = Finalists are groomed by investors, with a real chance to raise funding
 
 
 [panel-discussion]
 title = Panel Discussion
-category = Industry dialogue
+category = Industry Dialogue
 tagline = Unlock perspectives, one panel at a time.
 point = Expert-led conversations across every domain of management
-point = Debates, panel discussions and live projects with sponsor partners
+point = Engaging discussions, interactive sessions, and exciting opportunities with our partners.
 point = Students, faculty and industry leaders in the same room, solving real problems
 
 

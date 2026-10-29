@@ -1,7 +1,9 @@
-JOINT EVENT POSTERS (optional)
+JOINT EVENT AND PANEL DISCUSSION POSTERS (optional)
 Name each poster exactly like the event in joint-events.txt:
     event = Alumni Talk | Alumni Committee
     ->  Alumni Talk.jpg
+    event = The Future of HR Policy Making | Panel Discussion
+    ->  The Future of HR Policy Making.jpg
 
 Any poster shape works: a phone story (tall), an Instagram post (4:5) or a square.
 Posters are never cut off. All the cards take the shape most of the posters have.

@@ -65,7 +65,7 @@ export default function About() {
               ))}
               {mdiSite && (
                 <A href={mdiSite} className="link text-[0.9375rem]">
-                  Visit the MDI Gurgaon website
+                  Visit the MDI Gurgaon Website
                 </A>
               )}
             </div>
@@ -86,10 +86,10 @@ export default function About() {
 
       <section className="border-t border-line py-20 lg:py-28">
         <div className="wrap flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-          <h2 className="display max-w-[20ch] text-[clamp(1.9rem,3.4vw,2.8rem)]">See what's on at Delphique {site.year}</h2>
+          <h2 className="display max-w-[20ch] text-[clamp(1.9rem,3.4vw,2.8rem)]">See What's On at Delphique {site.year}</h2>
           <div className="flex flex-wrap gap-4">
             <Link to="/#events" className="btn btn-ghost">
-              Explore the events
+              Explore the Events
             </Link>
             <RegisterButton />
           </div>

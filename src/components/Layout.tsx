@@ -46,7 +46,14 @@ function Header() {
   return (
     <header className={`sticky top-0 z-50 border-b transition-colors duration-300 ${scrolled || open ? "border-line bg-ink/90 backdrop-blur-md" : "border-transparent bg-ink"}`}>
       <nav className="wrap flex h-[72px] items-center justify-between gap-6" aria-label="Main">
-        <Link to="/" aria-label="Delphique home" className="shrink-0">
+        {/* MDI's logo in the corner, then Delphique's, as on Delphique's posters. */}
+        <Link to="/" aria-label="Delphique home" className="flex shrink-0 items-center gap-3 sm:gap-4">
+          {logo.mdi && (
+            <>
+              <img src={logo.mdi} alt="MDI Gurgaon" className="h-7 w-auto object-contain sm:h-8 lg:h-9" />
+              <span className="h-8 w-px bg-line-strong lg:h-10" aria-hidden="true" />
+            </>
+          )}
           <Wordmark />
         </Link>
         <ul className="hidden items-center gap-9 lg:flex">
@@ -105,7 +112,7 @@ function Footer() {
         <div className="flex flex-col gap-6">
           <Wordmark large />
           <p className="max-w-[36ch] text-[0.9375rem] leading-relaxed text-mute">
-            The National Management Convention of MDI Gurgaon, and the red carpet event of the institute.
+            The National Management Convention of MDI Gurgaon.
           </p>
           <Social />
         </div>
@@ -113,20 +120,34 @@ function Footer() {
         <div>
           <h2 className="mb-5 font-display text-xl">Contact</h2>
           {/* Everything here comes from the Contact part of links.txt. */}
-          <ul className="flex flex-col gap-3 text-[0.9375rem] text-mute">
-            {contactPeople.map((p, i) => (
-              <li key={i} className="mb-2">
-                {p.name && <p className="text-paper">{p.name}</p>}
-                {p.role && <p className="text-sm">{p.role}</p>}
-                {[...p.phones, ...p.emails].map((c) => (
-                  <p key={c.href} className="mt-1">
-                    <a className="link" href={c.href}>
-                      {c.text}
-                    </a>
-                  </p>
-                ))}
-              </li>
-            ))}
+          {/* The people first, each as the same block (name with LinkedIn, position, number), then
+              Delphique's own email and address under a hairline, so they never read as one person's. */}
+          {contactPeople.length > 0 && (
+            <ul className="flex flex-col gap-5 text-[0.9375rem] text-mute">
+              {contactPeople.map((p, i) => (
+                <li key={i} className="flex flex-col gap-0.5">
+                  {p.name &&
+                    (p.linkedin ? (
+                      <A href={p.linkedin} className="inline-flex min-h-8 items-center gap-2 self-start text-paper hover:text-paper/80" aria-label={`${p.name} on LinkedIn`}>
+                        {p.name}
+                        <Linkedin size={15} className="text-mute" aria-hidden="true" />
+                      </A>
+                    ) : (
+                      <p className="flex min-h-8 items-center text-paper">{p.name}</p>
+                    ))}
+                  {p.role && <p className="text-sm">{p.role}</p>}
+                  {[...p.phones, ...p.emails].map((c) => (
+                    <p key={c.href} className="mt-1">
+                      <a className="link" href={c.href}>
+                        {c.text}
+                      </a>
+                    </p>
+                  ))}
+                </li>
+              ))}
+            </ul>
+          )}
+          <ul className={`flex flex-col gap-3 text-[0.9375rem] text-mute ${contactPeople.length ? "mt-6 border-t border-line pt-6" : ""}`}>
             {[...contact.emails, ...contact.phones].map((c) => (
               <li key={c.href}>
                 <a className="link" href={c.href}>
@@ -149,7 +170,7 @@ function Footer() {
             {mdi && (
               <li>
                 <A href={mdi} className="hover:text-paper">
-                  MDI Gurgaon website
+                  MDI Gurgaon Website
                 </A>
               </li>
             )}

@@ -50,16 +50,16 @@ headline = vision.
 headline = impact.
 headline = legacy.
 
-intro = The National Management Convention of MDI Gurgaon. A platform where India's top B-schools compete, pitch and debate in front of the people who run the industry.
+intro = The National Management Convention of MDI Gurgaon. A platform where students of India's top B-schools compete, pitch and debate in front of the people who run the industry.
 
 
 # ── Numbers strip (number | label) ────────────────────────────────────
 
 stat = {edition} | Edition
-stat = 10000+ | Attendees every year
-stat = 60+ | B-schools and colleges
-stat = 10+ | Events over two days
-stat = ₹7L+ | In prizes and vouchers
+stat = 5K+ | Attendees Every Year
+stat = 60+ | B-Schools and Colleges
+stat = 10+ | Events Over Two Days
+stat = ₹7L+ | In Prizes and Vouchers
 
 
 # ── About Delphique (About page + homepage) ───────────────────────────

@@ -1,9 +1,11 @@
 # ──────────────────────────────────────────────────────────────────────
-#  DELPHIQUE WEBSITE · JOINT EVENTS
+#  DELPHIQUE WEBSITE · JOINT EVENTS AND PANEL DISCUSSIONS
 #
-#  Events Delphique runs with other clubs, committees and student interest groups.
-#  They show in a strip under Flagship Events, soonest first (a search box appears once
-#  there are more than six). Events without a date stay up until you remove them.
+#  Events Delphique runs with other clubs, committees and student interest groups,
+#  and its panel discussions. They show in the "Joint Events and Panel Discussions" strip
+#  under Flagship Events, soonest first (a search box appears once there are more than
+#  six), alternating: a joint event, then a panel discussion, and so on.
+#  Events without a date stay up until you remove them.
 #
 #  One line per event:
 #
@@ -11,6 +13,9 @@
 #
 #  • Only the name is needed. Name first, then the club. The date and link are
 #    recognised wherever they are, so a missing | is not a problem.
+#  • A panel discussion: write  Panel Discussion  instead of the club. The card then
+#    says "Panel Discussion" (not "with …"):
+#       event = The Future of HR Policy Making | Panel Discussion
 #  • Date: like  14 November 2026,  15/11/2026,  or  20–22 November 2026  for more than one day.
 #    The event disappears from the website by itself the day after its date,
 #    so you never have to remove old ones (you can, if you like).
@@ -25,3 +30,5 @@
 event = Tark Vitark | Tark
 event = Strategy Sprint | 180 DC
 event = Quiz Arc | Infinite Pounces
+event = AI, Spirituality & Leadership | Panel Discussion
+event = The Future of HR Policy Making | Panel Discussion

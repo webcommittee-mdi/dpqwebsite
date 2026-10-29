@@ -209,18 +209,26 @@ export function favicons(): Plugin {
         const dark = /white|light|inverse|negative|reverse/i.test(icon);
         const bg = dark ? "#050505" : "#ffffff";
         const mark = await sharp(path.join(dir, icon), { density: 300 }).trim().png().toBuffer();
-        const tile = async (size: number, pad: number, round: boolean) => {
+        // Browser tabs: the icon on its own, no tile behind it (transparent PNG).
+        const bare = async (size: number, pad: number) => {
           const inner = Math.round(size * (1 - 2 * pad));
           const fitted = await sharp(mark).resize(inner, inner, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).toBuffer();
-          const r = round ? Math.round(size * 0.2) : 0;
-          const shape = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${r}" fill="${bg}"/></svg>`);
+          return sharp({ create: { width: size, height: size, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
+            .composite([{ input: fitted, gravity: "center" }])
+            .png()
+            .toBuffer();
+        };
+        // Phone home screens need a solid square: iOS turns transparent corners black.
+        const tile = async (size: number, pad: number) => {
+          const inner = Math.round(size * (1 - 2 * pad));
+          const fitted = await sharp(mark).resize(inner, inner, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).toBuffer();
+          const shape = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" fill="${bg}"/></svg>`);
           return sharp(shape).composite([{ input: fitted, gravity: "center" }]).png().toBuffer();
         };
         files = [
-          { fileName: "favicon-32.png", source: await tile(32, 0.06, true) },
-          { fileName: "favicon-192.png", source: await tile(192, 0.1, true) },
-          // iOS rounds the corners itself and turns transparent corners black.
-          { fileName: "apple-touch-icon.png", source: await tile(180, 0.12, false) },
+          { fileName: "favicon-32.png", source: await bare(32, 0) },
+          { fileName: "favicon-192.png", source: await bare(192, 0.03) },
+          { fileName: "apple-touch-icon.png", source: await tile(180, 0.12) },
         ];
       } catch (e) {
         files = [];

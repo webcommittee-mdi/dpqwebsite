@@ -1,0 +1,85 @@
+# ──────────────────────────────────────────────────────────────────────
+#  DELPHIQUE WEBSITE · TEAM LINKEDIN PROFILES
+#
+#  Each line links a team member's photo to their LinkedIn profile:
+#
+#     linkedin = Name | https://www.linkedin.com/in/...
+#
+#  • The name must match the name in their photo's file name in content/photos/team
+#    (capitals, extra spaces and dots don't matter).
+#  • A link copied from the LinkedIn app (with ?utm_source=… on the end) is fine.
+#  • A line for someone without a photo yet is fine too: /check lists it, and it starts
+#    working as soon as their photo is uploaded.
+#  • The same link shows next to a name in the footer's Contact list.
+#  • The | key is Shift + \ on the keyboard.
+#
+# ──────────────────────────────────────────────────────────────────────
+
+
+# ── Senior Members ────────────────────────────────────────────────────
+linkedin = Aarushi Khanna          | https://www.linkedin.com/in/aarushi-khanna-43981733a
+linkedin = Akshat Bajaj            | https://www.linkedin.com/in/akshat-bajaj-36a90223a
+linkedin = Anurag Sarkar           | https://www.linkedin.com/in/anurag-sarkar-35110b1bb
+linkedin = Balaji Lahoti           | https://www.linkedin.com/in/balaji-lahoti
+linkedin = Bhavya Verma            | https://www.linkedin.com/in/bhavyaverma0709
+linkedin = Devansh Goenka          | https://www.linkedin.com/in/devansh-goenka11
+linkedin = Hardik Dudiya           | https://www.linkedin.com/in/hardik-dudiya-8bb360192
+linkedin = Hiya Tiwari             | https://www.linkedin.com/in/hiya-tiwari
+linkedin = Kousshik Srivathsan     | https://www.linkedin.com/in/kousshik-srivaths
+linkedin = Kshitij Jain            | https://www.linkedin.com/in/kshitij-jain-escp
+linkedin = Manas Karlekar          | https://www.linkedin.com/in/manas-karlekar-9521081a6
+linkedin = Manvendra Shekhawat     | https://www.linkedin.com/in/manvendra-s-shekhawat
+linkedin = Niharika Rupani         | https://www.linkedin.com/in/niharika-rupani-34978a1b4
+linkedin = Pratham Goyal           | https://www.linkedin.com/in/prathammanishgoyal
+linkedin = Prerana Shekhawat       | https://www.linkedin.com/in/prerana-shekhawat-280a391b0
+linkedin = Riddhi Mutalik          | https://www.linkedin.com/in/riddhi-mutalik
+linkedin = Sanya Adlakha           | https://www.linkedin.com/in/sanya-adlakha
+linkedin = Shaurya Bhardwaj        | https://www.linkedin.com/in/shaurya-bhardwaj-b81109205
+linkedin = Shikhar R Singh         | https://www.linkedin.com/in/shikhar1607
+linkedin = Shiksha Hans            | https://www.linkedin.com/in/shiksha-hans-61095822a
+linkedin = Suhani Agrawal          | https://www.linkedin.com/in/suhaniagrawal138
+linkedin = Vaani Garg              | https://www.linkedin.com/in/vaani-garg-6a366a237
+linkedin = Vishakha Chauhan        | https://www.linkedin.com/in/vishakhachauhan
+
+
+# ── Members ───────────────────────────────────────────────────────────
+linkedin = Aditya Mahesh Holikatti | https://www.linkedin.com/in/aditya-holikatti-9a655b208
+linkedin = Akhita S                | https://www.linkedin.com/in/akhita-s-aa6143216
+linkedin = Aryann Mobin            | https://www.linkedin.com/in/aryannmobin
+linkedin = Charu Jain              | https://www.linkedin.com/in/charubainara
+linkedin = Deepanshu Singh         | https://www.linkedin.com/in/deepanshusinghh
+linkedin = Devesh Vijay            | https://www.linkedin.com/in/devesh-vijay
+linkedin = Dhruvesh Khinvasara     | https://www.linkedin.com/in/dhruvesh-khinvasara-206407214
+linkedin = Heerak Vora             | https://www.linkedin.com/in/heerakvora08
+linkedin = Ishan Srivastava        | https://www.linkedin.com/in/ishan-srivastava-50222422a
+linkedin = Jeetaksh Gandhi         | https://www.linkedin.com/in/jeetaksh
+linkedin = Lakshita Mittal         | https://www.linkedin.com/in/lakshitamittal
+linkedin = Manas Agnihotri         | https://www.linkedin.com/in/manas-agnihotri-55aa03203
+linkedin = Mansi Yadav             | https://www.linkedin.com/in/mansi-yadav-658228231
+linkedin = Megha Agarwal           | https://www.linkedin.com/in/megha-agarwal-6102241bb
+linkedin = Mohil Mehra             | https://www.linkedin.com/in/mohil-mehra
+linkedin = Muskan Jhunjhunwala     | https://www.linkedin.com/in/muskan-jhunjhunwala
+linkedin = Nancy Bhardwaj          | https://www.linkedin.com/in/nancy-bhardwaj
+linkedin = Palak Sureka            | https://www.linkedin.com/in/palak-sureka
+linkedin = Pavithra H Prasad       | https://www.linkedin.com/in/pavithra-h-prasad
+linkedin = Prajjwal Chamaria       | https://www.linkedin.com/in/prajjwalchamaria
+linkedin = Prateek Jain            | https://www.linkedin.com/in/prateek-jain-949740205
+linkedin = Pratiswik Sanyal        | https://www.linkedin.com/in/pratiswik-sanyal
+linkedin = Priyanshi Naredi        | https://www.linkedin.com/in/priyanshi-naredi
+linkedin = Sayan Chaudhuri         | https://www.linkedin.com/in/sayanchaudhuri
+linkedin = Shubhi Khemka           | https://www.linkedin.com/in/shubhi-khemka
+linkedin = Siya Gaur               | https://www.linkedin.com/in/siya-gaur
+linkedin = Subhrima Naha           | https://www.linkedin.com/in/subhrima-naha-219664304
+linkedin = Suhani Gandhi           | https://www.linkedin.com/in/suhani-gandhi-311968253
+linkedin = Tanmay                  | https://www.linkedin.com/in/tanand1
+linkedin = Teja Vignesh S          | https://www.linkedin.com/in/teja-vignesh-s
+linkedin = Vaibhav Rai Bansal      | https://www.linkedin.com/in/vaibhav-rai-bansal
+linkedin = Vanshika Jain           | https://www.linkedin.com/in/vanshika-jain-ab8034252
+linkedin = Vidhi Kothari           | https://www.linkedin.com/in/vidhiakothari
+linkedin = Vidushi Bajpai          | https://www.linkedin.com/in/vidushi-bajpai-76a662251
+
+
+# ── Website Team (Web Committee, MDI) ─────────────────────────────────
+linkedin = Tarun Sarkar            | https://www.linkedin.com/in/tarunsarkar
+linkedin = Deshank                 | https://www.linkedin.com/in/deshankb
+linkedin = Ishaan Bhardwaj         | https://www.linkedin.com/in/ishaan-rattan-bhardwaj

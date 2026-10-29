@@ -5,6 +5,8 @@ import { Carousel } from "./Carousel";
 import { A } from "./ui";
 
 const looksLikeForm = (href: string) => /forms|unstop|register|typeform|airtable|tally|konfhub|eventbrite/i.test(href);
+/** "Panel Discussion", "Fireside Chat"…: the kind of session, shown as it is, not as "with …". */
+const isFormat = (s: string) => /\b(panel|discussion|talk|keynote|fireside|chat|session|workshop|masterclass|conclave|summit|dialogue)\b/i.test(s);
 
 function Card({ ev, ratio }: { ev: JointEvent; ratio: number }) {
   const body = (
@@ -15,21 +17,27 @@ function Card({ ev, ratio }: { ev: JointEvent; ratio: number }) {
         ) : (
           // No poster yet: a typeset tile, so the strip still looks finished.
           <div className="flex h-full flex-col justify-between bg-gradient-to-b from-oxblood/70 via-stage to-stage p-5 ring-1 ring-inset ring-line">
-            <p className="text-[0.75rem] font-medium uppercase tracking-[0.18em] text-paper">
-              Delphique <span className="text-carpet">×</span> {ev.partner || "MDI"}
+            <p className="text-sm font-medium text-paper">
+              {isFormat(ev.partner) ? (
+                ev.partner
+              ) : (
+                <>
+                  Delphique <span className="text-carpet">×</span> {ev.partner || "MDI"}
+                </>
+              )}
             </p>
             <p className="font-display text-[1.75rem] leading-[1.1] text-paper text-balance">{ev.name}</p>
           </div>
         )}
       </div>
       <p className="line-clamp-2 font-display text-[1.125rem] leading-snug text-paper">{ev.name}</p>
-      {ev.partner && <p className="mt-1 truncate text-sm text-mute">with {ev.partner}</p>}
+      {ev.partner && <p className="mt-1 truncate text-sm text-mute">{isFormat(ev.partner) ? ev.partner : `with ${ev.partner}`}</p>}
       {ev.date && <p className="mt-1 text-sm text-gold">{ev.date}</p>}
-      {ev.link && <p className="mt-3 text-sm text-paper underline decoration-carpet underline-offset-4">{looksLikeForm(ev.link) ? "Register" : "Details"}</p>}
+      {ev.link && <p className="mt-3 text-sm text-paper underline decoration-carpet underline-offset-4">{looksLikeForm(ev.link) ? "Register Now" : "Details"}</p>}
     </>
   );
   return ev.link ? (
-    <A href={ev.link} className="block" aria-label={`${ev.name}${ev.partner ? ` with ${ev.partner}` : ""}${ev.date ? `, ${ev.date}` : ""}`}>
+    <A href={ev.link} className="block" aria-label={`${ev.name}${ev.partner ? (isFormat(ev.partner) ? `, ${ev.partner}` : ` with ${ev.partner}`) : ""}${ev.date ? `, ${ev.date}` : ""}`}>
       {body}
     </A>
   ) : (
@@ -47,9 +55,15 @@ export function JointEvents() {
 
   const upcoming = useMemo(() => {
     const now = Date.now();
-    return jointEvents
+    const sorted = jointEvents
       .filter((e) => Number.isNaN(e.endsAt) || e.endsAt > now)
       .sort((a, b) => (Number.isNaN(a.endsAt) ? (Number.isNaN(b.endsAt) ? 0 : 1) : Number.isNaN(b.endsAt) ? -1 : a.endsAt - b.endsAt)); // undated last, in file order
+    // A joint event, then a panel discussion, and so on (each kind keeps its own order).
+    const panels = sorted.filter((e) => isFormat(e.partner));
+    const joint = sorted.filter((e) => !isFormat(e.partner));
+    return Array.from({ length: Math.max(panels.length, joint.length) }, (_, i) => [joint[i], panels[i]])
+      .flat()
+      .filter((e): e is JointEvent => Boolean(e));
   }, []);
 
   const shown = useMemo(() => {
@@ -73,9 +87,9 @@ export function JointEvents() {
       <div className="wrap mb-10 flex flex-col gap-8 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <h2 id="joint-title" className="display mb-4 text-[clamp(1.9rem,3.4vw,2.8rem)]">
-            Joint events
+            Joint Events and Panel Discussions
           </h2>
-          <p className="lede">With MDI's clubs, committees and student interest groups.</p>
+          <p className="lede">With MDI's clubs, committees and student interest groups, and conversations with leaders from industry.</p>
         </div>
         {/* A search box only once the list is long enough to need one. */}
         {upcoming.length > 6 && (
@@ -104,13 +118,13 @@ export function JointEvents() {
       </div>
 
       {shown.length > 0 ? (
-        <Carousel items={shown} render={(ev) => <Card ev={ev} ratio={ratio} />} itemClassName="w-[200px] md:w-[240px]" label="Joint events" auto={!query} />
+        <Carousel items={shown} render={(ev) => <Card ev={ev} ratio={ratio} />} itemClassName="w-[200px] md:w-[240px]" label="Joint events and panel discussions" auto={!query} />
       ) : (
         <div className="wrap">
           <p className="lede">
             No joint events match “{query}”.{" "}
             <button onClick={() => setQuery("")} className="link">
-              Show all
+              Show All
             </button>
           </p>
         </div>

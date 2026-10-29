@@ -1,9 +1,9 @@
 TEAM
 Every folder here is one group on the Team page, shown in number order:
-    1 - Core team
-    2 - Junior team
+    1 - Senior Members
+    2 - Members
     3 - Website team (Web Committee, MDI)
-The number only sets the order; it is not shown.
+The number only sets the order; it is not shown. Names are shown with capitals ("Website Team").
 
 The "Website team" folder belongs to the Web Committee, who build and look after
 this website. Delphique: please leave that folder as it is.
@@ -11,7 +11,22 @@ this website. Delphique: please leave that folder as it is.
 Name each person's photo like this:
     01 - Aarav Sharma - Secretary.jpg
     (number for order) - (name) - (position)
-No position? Just  01 - Aarav Sharma.jpg
+No position? Just  01 - Aarav Sharma.jpg  (the homepage then shows the group: "Senior Member", "Member")
 
-Upright photos, head and shoulders, plain background. Straight from a phone is fine.
-The SAMPLE ("Member Name") photos hide themselves as soon as real team photos are added.
+LinkedIn: add a line for the person in content/team.txt
+    linkedin = Aarav Sharma | https://www.linkedin.com/in/aarav-sharma
+and their photo opens their profile. The name must match the photo's name.
+
+THE PHOTO (so everyone's card matches)
+    Shape:       upright, 4:5  (e.g. 1080 x 1350 px; at least 800 x 1000 px)
+    Framing:     head and shoulders, face in the middle, a little space above the head,
+                 eyes about a third of the way down. The face (chin to top of the head)
+                 takes up about a third of the photo's height.
+    Background:  the red brick wall the rest of the team used (stand an arm's length in
+                 front of it, so the wall fills everything behind you). Everyone in a
+                 group should have the same kind of background.
+    Look:        formals, facing the light (no window or sun behind you), no filters,
+                 no portrait-mode blur.
+    File:        JPG straight from the phone camera, not sent through WhatsApp.
+A photo in another shape still works: the website crops it from the top to 4:5.
+The homepage strip shows everyone except the Website Team, who are on the Team page.

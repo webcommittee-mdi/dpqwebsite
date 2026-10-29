@@ -1,7 +1,27 @@
 import { useEffect, type ReactNode } from "react";
 import { brochure, isExternal, logo, site, type Reg } from "../content";
 
-/** Renders **bold** markup from the content files. */
+/** "30th" -> 30<sup>th</sup>, wherever an ordinal number appears in a piece of text. */
+export function Ordinals({ text }: { text: string }) {
+  const parts = text.split(/(\b\d+(?:st|nd|rd|th)\b)/g);
+  return (
+    <>
+      {parts.map((p, i) => {
+        const m = p.match(/^(\d+)(st|nd|rd|th)$/);
+        return m ? (
+          <span key={i} className="whitespace-nowrap">
+            {m[1]}
+            <sup className="ordinal">{m[2]}</sup>
+          </span>
+        ) : (
+          p
+        );
+      })}
+    </>
+  );
+}
+
+/** Renders **bold** markup from the content files (and superscript ordinals). */
 export function Rich({ text }: { text: string }) {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return (
@@ -9,10 +29,10 @@ export function Rich({ text }: { text: string }) {
       {parts.map((p, i) =>
         p.startsWith("**") && p.endsWith("**") ? (
           <strong key={i} className="font-medium text-paper">
-            {p.slice(2, -2)}
+            <Ordinals text={p.slice(2, -2)} />
           </strong>
         ) : (
-          p
+          <Ordinals key={i} text={p} />
         ),
       )}
     </>
@@ -31,16 +51,24 @@ export function A({ href, className, children, ...rest }: { href: string; classN
 
 /**
  * Registration button. What it shows comes from links.txt (and the event dates):
- * a link -> "Register"; blank -> "Registrations open soon"; "closed" -> "Registrations closed";
- * "none" -> nothing at all.
+ * a link -> "Register Now"; "open" -> "Registrations Open" (no link yet); blank -> "Registrations Open Soon";
+ * "closed" -> "Registrations Closed"; "none" -> nothing at all.
  */
-export function RegisterButton({ reg = site.register, label = "Register", small = false }: { reg?: Reg; label?: string; small?: boolean }) {
+export function RegisterButton({ reg = site.register, label = "Register Now", small = false }: { reg?: Reg; label?: string; small?: boolean }) {
   const size = small ? " btn-sm" : "";
   if (reg.state === "none") return null;
+  if (reg.state === "live") {
+    return (
+      <span className={`btn btn-live${size}`} aria-disabled="true">
+        <span className="live-dot" aria-hidden="true" />
+        Registrations Open
+      </span>
+    );
+  }
   if (reg.state !== "open") {
     return (
       <span className={`btn btn-muted${size}`} aria-disabled="true">
-        {reg.state === "closed" ? "Registrations closed" : "Registrations open soon"}
+        {reg.state === "closed" ? "Registrations Closed" : "Registrations Open Soon"}
       </span>
     );
   }
@@ -56,7 +84,7 @@ export function BrochureButton({ className = "btn btn-ghost" }: { className?: st
   if (!href) return null;
   return (
     <A href={href} className={className}>
-      Download the brochure
+      Download the Brochure
     </A>
   );
 }
@@ -65,7 +93,7 @@ export function BrochureButton({ className = "btn btn-ghost" }: { className?: st
 export function Wordmark({ large = false }: { large?: boolean }) {
   if (logo.delphique) {
     // self-start + object-contain: never stretched by the flex column it sits in (the footer).
-    return <img src={logo.delphique} alt="Delphique" className={`${large ? "h-20" : "h-12 lg:h-14"} w-auto max-w-full self-start object-contain`} />;
+    return <img src={logo.delphique} alt="Delphique" className={`${large ? "h-20" : "h-11 sm:h-12 lg:h-14"} w-auto max-w-full self-start object-contain`} />;
   }
   return (
     <span className="flex flex-col leading-none select-none">

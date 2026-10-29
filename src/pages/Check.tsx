@@ -21,9 +21,10 @@ export default function Check() {
   const upcoming = jointEvents.filter((e) => Number.isNaN(e.endsAt) || e.endsAt > now).length;
   const summary = [
     ["Flagship events", events.length],
-    ["Joint events coming up", `${upcoming} (of ${jointEvents.length} listed)`],
+    ["Joint events and panels coming up", `${upcoming} (of ${jointEvents.length} listed)`],
     ["Gallery photos", allPhotos.length],
     ["Team groups", `${team.length} (${team.reduce((n, g) => n + g.people.length, 0)} people)`],
+    ["Team photos linked to LinkedIn", `${team.reduce((n, g) => n + g.people.filter((p) => p.linkedin).length, 0)} (from team.txt)`],
     ["Speakers", `${speakers.length} upcoming, ${pastSpeakers.length} past`],
     ["Contact people", contactPeople.length],
     ["Event dates", site.dates || (site.eventOver ? "the event has passed" : "not set")],
