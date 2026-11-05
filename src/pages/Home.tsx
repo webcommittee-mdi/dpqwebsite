@@ -389,6 +389,7 @@ function TeamStrip() {
 
 function Partners() {
   const partnerLink = link("partner_with_us") || contact.emails[0]?.href || "";
+  {/*
   return (
     <section className="py-24 lg:py-32" aria-labelledby="partners-title">
       <div className="wrap">
@@ -397,7 +398,6 @@ function Partners() {
             <h2 id="partners-title" className="mb-10 text-center font-display text-2xl text-mute">
               Our Partners
             </h2>
-            {/* Light tiles so any logo (dark, coloured, or a JPG with a white box) stays visible. */}
             <ul className="mb-20 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
               {partners.map((p) => (
                 <li key={p.src} className="grid h-24 place-items-center bg-white px-6 md:h-28">
@@ -428,6 +428,7 @@ function Partners() {
       </div>
     </section>
   );
+  */}
 }
 
 /* ── Final call to action ──────────────────────────────────────────────── */
@@ -438,7 +439,9 @@ function FinalCall() {
     <section className="relative overflow-hidden bg-oxblood py-28 lg:py-40">
       {photo && <img src={photo} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-25 mix-blend-luminosity" />}
       <div className="wrap relative text-center">
-        <h2 className="display mx-auto mb-6 max-w-[16ch] text-[clamp(2.6rem,6vw,5rem)]">Be Part of the <Ordinals text={site.edition} /> Edition</h2>
+        <h2 className="display mx-auto mb-6 max-w-[16ch] text-[clamp(2.6rem,6vw,5rem)] text-gold">
+          Be Part of the <Ordinals text={site.edition} /> Edition
+        </h2>
         <p className="mx-auto mb-12 max-w-[48ch] text-[1.0625rem] leading-relaxed text-paper/80">
           {[site.dates, site.venue].filter(Boolean).join(", ") || site.venue}
         </p>
