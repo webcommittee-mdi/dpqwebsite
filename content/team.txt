@@ -45,11 +45,9 @@ linkedin = Vishakha Chauhan        | https://www.linkedin.com/in/vishakhachauhan
 # ── Members ───────────────────────────────────────────────────────────
 linkedin = Aditya Mahesh Holikatti | https://www.linkedin.com/in/aditya-holikatti-9a655b208
 linkedin = Akhita S                | https://www.linkedin.com/in/akhita-s-aa6143216
-linkedin = Aryann Mobin            | https://www.linkedin.com/in/aryannmobin
 linkedin = Charu Jain              | https://www.linkedin.com/in/charubainara
 linkedin = Deepanshu Singh         | https://www.linkedin.com/in/deepanshusinghh
 linkedin = Devesh Vijay            | https://www.linkedin.com/in/devesh-vijay
-linkedin = Dhruvesh Khinvasara     | https://www.linkedin.com/in/dhruvesh-khinvasara-206407214
 linkedin = Heerak Vora             | https://www.linkedin.com/in/heerakvora08
 linkedin = Ishan Srivastava        | https://www.linkedin.com/in/ishan-srivastava-50222422a
 linkedin = Jeetaksh Gandhi         | https://www.linkedin.com/in/jeetaksh
@@ -59,23 +57,19 @@ linkedin = Mansi Yadav             | https://www.linkedin.com/in/mansi-yadav-658
 linkedin = Megha Agarwal           | https://www.linkedin.com/in/megha-agarwal-6102241bb
 linkedin = Mohil Mehra             | https://www.linkedin.com/in/mohil-mehra
 linkedin = Muskan Jhunjhunwala     | https://www.linkedin.com/in/muskan-jhunjhunwala
-linkedin = Nancy Bhardwaj          | https://www.linkedin.com/in/nancy-bhardwaj
+linkedin = Nancy Bhardwaj          | https://www.linkedin.com/in/nancy-bhardwaj-/
 linkedin = Palak Sureka            | https://www.linkedin.com/in/palak-sureka
 linkedin = Pavithra H Prasad       | https://www.linkedin.com/in/pavithra-h-prasad
 linkedin = Prajjwal Chamaria       | https://www.linkedin.com/in/prajjwalchamaria
-linkedin = Prateek Jain            | https://www.linkedin.com/in/prateek-jain-949740205
 linkedin = Pratiswik Sanyal        | https://www.linkedin.com/in/pratiswik-sanyal
-linkedin = Priyanshi Naredi        | https://www.linkedin.com/in/priyanshi-naredi
 linkedin = Sayan Chaudhuri         | https://www.linkedin.com/in/sayanchaudhuri
 linkedin = Shubhi Khemka           | https://www.linkedin.com/in/shubhi-khemka
 linkedin = Siya Gaur               | https://www.linkedin.com/in/siya-gaur
 linkedin = Subhrima Naha           | https://www.linkedin.com/in/subhrima-naha-219664304
 linkedin = Suhani Gandhi           | https://www.linkedin.com/in/suhani-gandhi-311968253
-linkedin = Tanmay                  | https://www.linkedin.com/in/tanand1
 linkedin = Teja Vignesh S          | https://www.linkedin.com/in/teja-vignesh-s
 linkedin = Vaibhav Rai Bansal      | https://www.linkedin.com/in/vaibhav-rai-bansal
 linkedin = Vanshika Jain           | https://www.linkedin.com/in/vanshika-jain-ab8034252
-linkedin = Vidhi Kothari           | https://www.linkedin.com/in/vidhiakothari
 linkedin = Vidushi Bajpai          | https://www.linkedin.com/in/vidushi-bajpai-76a662251
 
 
