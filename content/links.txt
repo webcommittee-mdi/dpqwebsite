@@ -16,7 +16,7 @@
 # ── Registration ──────────────────────────────────────────────────────
 
 # The main "Register Now" button (top bar, homepage, final section)
-register =
+register = https://unstop.com/college-fests/delphique-2026-management-development-institute-mdi-gurgaon-546576
 
 # One registration form per event, shown on that event's card.
 # The word after "register_" must match the event's short ID in [brackets] in events.txt.
@@ -25,7 +25,7 @@ register =
 # Registrations are on but the form link isn't ready (e.g. the Unstop page)? Write  open
 # and the card says "Registrations Open". Paste the link over it when you have it.
 register_cerebro =
-register_vincenza =
+register_vincenza = https://unstop.com/competitions/vincenza-130-the-international-business-plan-competition-delphique-2026-mdi-1804689
 register_panel-discussion =
 register_mun =
 
@@ -43,7 +43,7 @@ partner_with_us =
 
 # Brochure. A web link, or the name of a PDF you uploaded to content/downloads/
 # (if the name doesn't match, the newest-looking PDF there is used).
-brochure = Delphique-Brochure-2025-26.pdf
+# brochure = Delphique-Brochure-2025-26.pdf
 
 
 # ── Contact (the Contact part of the footer) ──────────────────────────
@@ -53,7 +53,7 @@ brochure = Delphique-Brochure-2025-26.pdf
 # Leave out what you don't want to show, e.g.  contact = Aarav Sharma | Secretary, Delphique | +91 98765 43210
 # With a LinkedIn link (here, or for the same name in team.txt) the name opens their profile.
 contact = Devansh Goenka | Secretary, Delphique | +91 99535 68303 | https://www.linkedin.com/in/devansh-goenka11
-contact = Nancy Bhardwaj | Joint Secretary, Delphique | https://www.linkedin.com/in/nancy-bhardwaj
+contact = Nancy Bhardwaj | Joint Secretary, Delphique | +91 79884 78031 | https://www.linkedin.com/in/nancy-bhardwaj
 
 # A general Delphique email and phone (optional). Several are fine:  phone = +91 98765 43210 / +91 91234 56789
 email = delphique@mdi.ac.in
