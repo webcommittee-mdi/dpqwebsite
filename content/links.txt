@@ -24,7 +24,7 @@ register = https://unstop.com/college-fests/delphique-2026-management-developmen
 # An event with no sign-ups at all (like a show)? Write  none  and its card has no button.
 # Registrations are on but the form link isn't ready (e.g. the Unstop page)? Write  open
 # and the card says "Registrations Open". Paste the link over it when you have it.
-register_cerebro =
+register_cerebro = https://unstop.com/competitions/cerebro-150-the-national-case-study-competition-delphique-2026-mdi-1803817
 register_vincenza = https://unstop.com/competitions/vincenza-130-the-international-business-plan-competition-delphique-2026-mdi-1804689
 register_panel-discussion =
 register_mun =
