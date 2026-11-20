@@ -27,7 +27,7 @@ register = https://unstop.com/college-fests/delphique-2026-management-developmen
 register_cerebro = https://unstop.com/competitions/cerebro-150-the-national-case-study-competition-delphique-2026-mdi-1803817
 register_vincenza = https://unstop.com/competitions/vincenza-130-the-international-business-plan-competition-delphique-2026-mdi-1804689
 register_panel-discussion =
-register_mun =
+register_mun = https://unstop.com/p/asian-parliamentary-debate-2026-delphique-2026-mdi-1805365
 
 
 # ── Team and partners ─────────────────────────────────────────────────

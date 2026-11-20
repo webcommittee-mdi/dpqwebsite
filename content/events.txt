@@ -36,6 +36,13 @@ point = Present your business plan to industry leaders and unlock exciting oppor
 point = Shortlisted teams receive exclusive mentorship and guidance from industry experts and ecosystem partners.
 point = Finalists are groomed by investors, with a real chance to raise funding
 
+[mun]
+title = APD
+category = Asian Parliamentary Debate
+tagline = Think critically. Argue persuasively. Debate fiercely.
+point = Two days of competitive debating on contemporary national and international issues.
+point = Tests critical thinking, persuasive argumentation and strategic rebuttals
+point = A knockout format where teamwork, spontaneity and conviction make all the difference.
 
 [panel-discussion]
 title = Panel Discussion
@@ -44,12 +51,3 @@ tagline = Unlock perspectives, one panel at a time.
 point = Expert-led conversations across every domain of management
 point = Engaging discussions, interactive sessions, and exciting opportunities with our partners.
 point = Students, faculty and industry leaders in the same room, solving real problems
-
-
-[mun]
-title = MUN
-category = Model United Nations
-tagline = Experience diplomacy. Master negotiation. Shape global affairs.
-point = Two days of debate on social, political and economic questions
-point = Builds diplomacy, conflict resolution and strategic thinking
-point = Committees that demand an international view of every problem
